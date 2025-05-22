@@ -13,6 +13,8 @@
 #define PORT_BASE (8)
 #define PORT_DIR_BASE (16)
 
-#define CUTTLEFISH_HARP_DEVICE_ID (0x057B)
+#define CUTTLEFISH_CAM_TRIGGER_HARP_DEVICE_ID (1408)
+
+inline constexpr uint8_t MAX_QUEUE_SIZE = 32;
 
 #endif // CONFIG_H
