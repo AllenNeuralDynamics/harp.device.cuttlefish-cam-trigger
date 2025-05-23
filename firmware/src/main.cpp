@@ -42,6 +42,8 @@ int main()
     // Configure core1 to have high priority on the bus.
     bus_ctrl_hw->priority = 0x00000010;
     // Initialize queues for multicore communication.
+    queue_init(&rising_edge_monitor_queue, sizeof(uint32_t), MAX_QUEUE_SIZE);
+    queue_init(&rising_edge_monitor_reply_queue, sizeof(uint32_t), MAX_QUEUE_SIZE);
     queue_init(&rising_edge_event_queue, sizeof(RisingEdgeEventData), MAX_QUEUE_SIZE);
 
 #if defined(DEBUG) || defined(PROFILE_CPU)

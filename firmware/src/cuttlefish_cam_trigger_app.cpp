@@ -1,207 +1,151 @@
-#include <cuttlefish_fip_app.h>
+#include <cuttlefish_cam_trigger_app.h>
+
+PWM pwm_outputs[PWM_OUTPUT_COUNT] =
+{
+    {PORT_BASE},
+    {PORT_BASE + 1},
+    {PORT_BASE + 2},
+    {PORT_BASE + 3},
+    {PORT_BASE + 4},
+    {PORT_BASE + 5},
+    {PORT_BASE + 6},
+    {PORT_BASE + 7}
+};
+
 
 app_regs_t app_regs;
 
+
 RegSpecs app_reg_specs[REG_COUNT]
 {
-    {(uint8_t*)&app_regs.EnableTaskSchedule, sizeof(app_regs.EnableTaskSchedule), U8},
-    {(uint8_t*)&app_regs.AddLaserTask, sizeof(app_regs.AddLaserTask), U8},
-    {(uint8_t*)&app_regs.RemoveLaserTask, sizeof(app_regs.RemoveLaserTask), U8},
-    {(uint8_t*)&app_regs.RemoveAllLaserTasks, sizeof(app_regs.RemoveAllLaserTasks), U8},
-    {(uint8_t*)&app_regs.LaserTaskCount, sizeof(app_regs.LaserTaskCount), U8},
+    {(uint8_t*)&app_regs.PWMEnabledMask, sizeof(app_regs.PWMEnabledMask), U8},
+    {(uint8_t*)&app_regs.PWMInvertedMask, sizeof(app_regs.PWMInvertedMask), U8},
+    {(uint8_t*)&app_regs.RisingEdgeEventMask, sizeof(app_regs.RisingEdgeEventMask), U8},
     {(uint8_t*)&app_regs.RisingEdgeEvent, sizeof(app_regs.RisingEdgeEvent), U8},
-    {(uint8_t*)&app_regs.ReconfigureLaserTask[0], sizeof(LaserFIPTaskSettings), U8},
-    {(uint8_t*)&app_regs.ReconfigureLaserTask[1], sizeof(LaserFIPTaskSettings), U8},
-    {(uint8_t*)&app_regs.ReconfigureLaserTask[2], sizeof(LaserFIPTaskSettings), U8},
-    {(uint8_t*)&app_regs.ReconfigureLaserTask[3], sizeof(LaserFIPTaskSettings), U8},
-    {(uint8_t*)&app_regs.ReconfigureLaserTask[4], sizeof(LaserFIPTaskSettings), U8},
-    {(uint8_t*)&app_regs.ReconfigureLaserTask[5], sizeof(LaserFIPTaskSettings), U8},
-    {(uint8_t*)&app_regs.ReconfigureLaserTask[6], sizeof(LaserFIPTaskSettings), U8},
-    {(uint8_t*)&app_regs.ReconfigureLaserTask[7], sizeof(LaserFIPTaskSettings), U8},
+
+    {(uint8_t*)&app_regs.PWMTaskSettings[0].frequency_hz, sizeof(pwm_task_settings_t::frequency_hz), Float},
+    {(uint8_t*)&app_regs.PWMTaskSettings[0].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
+
+    {(uint8_t*)&app_regs.PWMTaskSettings[1].frequency_hz, sizeof(pwm_task_settings_t::frequency_hz), Float},
+    {(uint8_t*)&app_regs.PWMTaskSettings[1].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
+
+    {(uint8_t*)&app_regs.PWMTaskSettings[2].frequency_hz, sizeof(pwm_task_settings_t::frequency_hz), Float},
+    {(uint8_t*)&app_regs.PWMTaskSettings[2].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
+
+    {(uint8_t*)&app_regs.PWMTaskSettings[3].frequency_hz, sizeof(pwm_task_settings_t::frequency_hz), Float},
+    {(uint8_t*)&app_regs.PWMTaskSettings[3].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
+
+    {(uint8_t*)&app_regs.PWMTaskSettings[4].frequency_hz, sizeof(pwm_task_settings_t::frequency_hz), Float},
+    {(uint8_t*)&app_regs.PWMTaskSettings[4].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
+
+    {(uint8_t*)&app_regs.PWMTaskSettings[5].frequency_hz, sizeof(pwm_task_settings_t::frequency_hz), Float},
+    {(uint8_t*)&app_regs.PWMTaskSettings[5].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
+
+    {(uint8_t*)&app_regs.PWMTaskSettings[6].frequency_hz, sizeof(pwm_task_settings_t::frequency_hz), Float},
+    {(uint8_t*)&app_regs.PWMTaskSettings[6].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
+
+    {(uint8_t*)&app_regs.PWMTaskSettings[7].frequency_hz, sizeof(pwm_task_settings_t::frequency_hz), Float},
+    {(uint8_t*)&app_regs.PWMTaskSettings[7].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
 };
+
 
 RegFnPair reg_handler_fns[REG_COUNT]
 {
-    {HarpCore::read_reg_generic, write_enable_task_schedule}, // read is technically undefined
-    {HarpCore::read_reg_generic, write_add_laser_task},       // read is technically undefined
-    {HarpCore::read_reg_generic, write_remove_laser_task},    // read is technically undefined
-    {HarpCore::read_reg_generic, write_remove_all_laser_tasks}, // read is technically undefined
-    {HarpCore::read_reg_generic, HarpCore::write_to_read_only_reg_error},
+    {HarpCore::read_reg_generic, write_pwm_enabled_mask},
+    {HarpCore::read_reg_generic, write_pwm_inverted_mask},
+    {HarpCore::read_reg_generic, write_pwm_edge_event_mask},
     {HarpCore::read_reg_generic, HarpCore::write_to_read_only_reg_error},
 
-    {read_reconfigure_laser_task, write_reconfigure_laser_task},
-    {read_reconfigure_laser_task, write_reconfigure_laser_task},
-    {read_reconfigure_laser_task, write_reconfigure_laser_task},
-    {read_reconfigure_laser_task, write_reconfigure_laser_task},
-    {read_reconfigure_laser_task, write_reconfigure_laser_task},
-    {read_reconfigure_laser_task, write_reconfigure_laser_task},
-    {read_reconfigure_laser_task, write_reconfigure_laser_task},
-    {read_reconfigure_laser_task, write_reconfigure_laser_task},
+    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_duty_cycle},
+
+    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_duty_cycle},
+
+    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_duty_cycle},
+
+    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_duty_cycle},
+
+    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_duty_cycle},
+
+    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_duty_cycle},
+
+    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_duty_cycle},
+
+    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 };
 
-void read_reconfigure_laser_task(uint8_t address)
+void write_pwm_enabled_mask(msg_t& msg)
 {
-    size_t task_index = get_fip_task_index(address);
-    // Warning: if we are trying to read from a non-configured task, the
-    // data is undefined (will be all zeros in this case.).
-    if ((task_index + 1) <= app_regs.LaserTaskCount)
-        app_regs.ReconfigureLaserTask[task_index] = fip_tasks[task_index].settings_;
-    if (!HarpCore::is_muted())
-        HarpCore::send_harp_reply(READ, address);
-}
-
-bool set_task_schedule_state(bool state)
-{
-    // Push enable/disable signal to core1.
-    bool success = queue_try_add(&enable_task_schedule_queue, &state);
-    // Harp register should represent the actual state of the task schedule.
-    app_regs.EnableTaskSchedule = uint8_t(state);
-    return success;
-}
-
-void write_enable_task_schedule(msg_t& msg)
-{
-    HarpCore::copy_msg_payload_to_register(msg);
-    bool success = set_task_schedule_state(bool(app_regs.EnableTaskSchedule));
-    if (HarpCore::is_muted())
-        return;
-    if (success)
-        HarpCore::send_harp_reply(WRITE, msg.header.address);
-    else
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-}
-
-void write_add_laser_task(msg_t& msg)
-{
-    // Emit error if schedule is running or task count is at maximum.
-    if (app_regs.EnableTaskSchedule || (app_regs.LaserTaskCount == MAX_TASK_COUNT))
+    HarpCore::copy_msg_payload_to_register();
+    uint8_t pwm_enabled_bits = app_regs.PWMEnabledMask;  // make a copy.
+    // Enable/disable each pwm output.
+    for (auto& pwm_output: pwm_outputs)
     {
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
+        // Update the hardware pwm state.
+        // TODO: make sure we've actually written some settings (freq, duty cycle) to this pwm output.
+        bool& pwm_enabled = bool(pwm_enabled_bits & 0x01);
+        if (pwm_enabled)
+            pwm_output.enable_output();
+        else
+            pwm_output.disable_output();
+        pwm_enabled_bits >>= 1;
     }
-    HarpCore::copy_msg_payload_to_register(msg);
-    LaserFIPTaskSettings* settings_ptr
-        = reinterpret_cast<LaserFIPTaskSettings*>(msg.payload);
-    // Emit error if pwm_pin_bit is specified wrong (more than 1 or none).
-    if (std::popcount(settings_ptr->pwm_pin_bit) != 1)
-    {
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
-    }
-    // Source is one-hot encoded and refers to pins in a range from 0 through 7.
-    // PCB "IO0" = GPIO0 + PORT_BASE. Do offset.
-    settings_ptr->pwm_pin_bit = settings_ptr->pwm_pin_bit << PORT_BASE;
-    settings_ptr->output_mask = settings_ptr->output_mask << PORT_BASE;
-
-    // Push the task settings to core1.
-    if (!queue_try_add(&add_task_queue, settings_ptr))
-    {
-        // Handle queue full error.
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
-    }
-
-    ++app_regs.LaserTaskCount;
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
 }
 
-void write_remove_laser_task(msg_t& msg)
+void write_pwm_inverted_mask(msg_t& msg)
 {
-    HarpCore::copy_msg_payload_to_register(msg);
-    size_t task_index = app_regs.RemoveLaserTask;
-
-    // Emit error if schedule is running or task does not exist.
-    if (app_regs.EnableTaskSchedule || 
-        ((task_index + 1 ) > app_regs.LaserTaskCount || (task_index >= MAX_TASK_COUNT)))
+    HarpCore::copy_msg_payload_to_register();
+    uint8_t pwm_enabled_bits = app_regs.PWMInvertedMask;  // make a copy.
+    for (size_t pwm_pin = PORT_BASE; pwm_pin < PORT_BASE + PWM_OUTPUT_COUNT, ++pwm_pin)
     {
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
+        bool& pwm_inverted = bool(pwm_inverted_bits & 0x01);
+        if (pwm_inverted)
+            gpio_set_outover(pwm_pin, GPIO_OVERRIDE_INVERT);
+        else
+            gpio_set_outover(pwm_pin, GPIO_OVERRIDE_NORMAL);
+        pwm_inverted_bits >>= 1;
     }
-
-    // push remove-by-index signal to core1.
-    if (!queue_try_add(&remove_task_queue, &task_index))
-    {
-        // Handle queue full error.
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
-    }
-
-    // Remove the task from the app_regs and shift all tasks down by one.
-    for (size_t i = task_index; i < (MAX_TASK_COUNT - 1); ++i)
-    {
-        app_regs.ReconfigureLaserTask[i] = app_regs.ReconfigureLaserTask[i + 1];
-    }
-
-    --app_regs.LaserTaskCount;
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
 }
 
-void write_remove_all_laser_tasks(msg_t& msg)
+void write_pwm_edge_event_mask(msg_t& msg)
 {
-    HarpCore::copy_msg_payload_to_register(msg);
-    // push remove-all signal to core1.
-    if (!queue_try_add(&clear_tasks_queue, &app_regs.RemoveAllLaserTasks))
-    {
-        // Handle queue full error.
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
-    }
-
-    // Clear the app_regs.
-    for (size_t i = 0; i < MAX_TASK_COUNT; ++i)
-    {
-        app_regs.ReconfigureLaserTask[i] = LaserFIPTaskSettings();
-    }
-
-    app_regs.LaserTaskCount = 0;
+    copy_msg_payload_to_register();
+    uint32_t rising_edges_to_monitor = uint32_t(app_regs.RisingEdgeEventMask)
+                                       << PORT_BASE;
+    queue_try_add(&enable_task_schedule_queue, &rising_edges_to_monitor);
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
 }
 
-void write_reconfigure_laser_task(msg_t& msg)
+void write_pwm_frequency_hz(msg_t& msg)
 {
-    size_t task_index = get_fip_task_index(msg);
-    // Emit error if schedule is running.
-    if (app_regs.EnableTaskSchedule)
-    {
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
-    }
-    // Emit Write Error if this task does not yet exist in the queue.
-    if ((task_index + 1) > app_regs.LaserTaskCount)
-    {
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
-    }
-    HarpCore::copy_msg_payload_to_register(msg);
-    LaserFIPTaskSettings* settings_ptr
-        = reinterpret_cast<LaserFIPTaskSettings*>(msg.payload);
-    // Emit error if pwm_pin_bit is specified wrong (more than 1 or none).
-    if (std::popcount(settings_ptr->pwm_pin_bit) != 1)
-    {
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
-    }
-    // Source is one-hot encoded and refers to pins in a range from 0 through 7.
-    // PCB "IO0" = GPIO0 + PORT_BASE. Do offset.
-    settings_ptr->pwm_pin_bit = settings_ptr->pwm_pin_bit << PORT_BASE;
-    settings_ptr->output_mask = settings_ptr->output_mask << PORT_BASE;
+    copy_msg_payload_to_register();
+    uint32_t pwm_index = reg_to_pwm_index(msg.header.address);
+    float& frequency_hz = app_regs.PWMTaskSettings[pwm_index].frequency_hz;
+    pwm_outputs[pwm_index].set_frequency_hz(frequency_hz);
+    if (!HarpCore::is_muted())
+        HarpCore::send_harp_reply(WRITE, msg.header.address);
+}
 
-    ReconfigureTaskData task_data = {task_index, *settings_ptr};
-
-    // Push reconfigured task data to core1.
-    if (!queue_try_add(&reconfigure_task_queue, &task_data))
-    {
-        // Handle queue full error.
-        HarpCore::send_harp_reply(WRITE_ERROR, msg.header.address);
-        return;
-    }
+void write_pwm_duty_cycle(msg_t& msg)
+{
+    copy_msg_payload_to_register();
 
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
 }
+
 
 void update_app()
 {
