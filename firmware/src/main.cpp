@@ -3,12 +3,13 @@
 #include <config.h>
 #include <harp_c_app.h>
 #include <harp_synchronizer.h>
-#include <cuttlefish_app.h>
-#include <schedule_ctrl_queues.h>
+#include <cuttlefish_cam_trigger_app.h>
+#include <queues.h>
 #include <pico/multicore.h>
 #include <hardware/structs/bus_ctrl.h>
 #include <core1_main.h>
 
+queue_t rising_edge_monitor_queue;
 queue_t rising_edge_event_queue;
 
 // Create device name array.
@@ -30,7 +31,7 @@ HarpCApp& app = HarpCApp::init(who_am_i, hw_version_major, hw_version_minor,
                                serial_number, "cuttlefish-cam-trigger",
                                (uint8_t*)GIT_HASH,
                                &app_regs, app_reg_specs,
-                               reg_handler_fns, reg_count, update_app_state,
+                               reg_handler_fns, REG_COUNT, update_app,
                                reset_app);
 
 // Core0 main.
@@ -43,7 +44,6 @@ int main()
     bus_ctrl_hw->priority = 0x00000010;
     // Initialize queues for multicore communication.
     queue_init(&rising_edge_monitor_queue, sizeof(uint32_t), MAX_QUEUE_SIZE);
-    queue_init(&rising_edge_monitor_reply_queue, sizeof(uint32_t), MAX_QUEUE_SIZE);
     queue_init(&rising_edge_event_queue, sizeof(RisingEdgeEventData), MAX_QUEUE_SIZE);
 
 #if defined(DEBUG) || defined(PROFILE_CPU)

@@ -44,9 +44,9 @@ include_directories(inc)
 
 
 # Link libraries to the targets that need them.
-target_link_libraries(core1_main pico_stdlib rp2040-pwm)
+target_link_libraries(core1_main pico_stdlib pico_multicore)
 target_link_libraries(${PROJECT_NAME}
-    pico_stdlib core1_main pico_multicore harp_core harp_sync harp_c_app)
+    pico_stdlib core1_main pico_multicore harp_core harp_sync harp_c_app rp2040_pwm)
 
 
 # create map/bin/hex/uf2 file in addition to ELF.

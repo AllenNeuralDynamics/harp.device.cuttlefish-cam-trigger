@@ -17,7 +17,7 @@
 
 // Setup for Harp App
 
-extern PWM[PWM_OUTPUT_COUNT] pwm_outputs;
+extern PWM pwm_outputs[PWM_OUTPUT_COUNT];
 
 inline constexpr size_t PWM_TASK_ELEMENT_COUNT = 2;
 
@@ -39,7 +39,7 @@ struct app_regs_t
     uint8_t PWMInvertedMask;
     uint8_t RisingEdgeEventMask;
     uint8_t RisingEdgeEvent;
-    pwm_task_settings_t PWMTaskSettings[PWM_COUNT];
+    pwm_task_settings_t PWMTaskSettings[PWM_OUTPUT_COUNT];
     // More app "registers" here.
 };
 #pragma pack(pop)
@@ -80,7 +80,7 @@ extern app_regs_t app_regs;
 inline uint32_t reg_to_pwm_index(uint32_t reg)
 {
     // Warning: no error-checking for registers outside the pwm range!
-    size_t pwm_settings_starting_reg = HarpCore::APP_REG_START_ADDRESS
+    size_t pwm_settings_starting_reg = APP_REG_START_ADDRESS
                                        + PWM_REG_OFFSET;
     return ceil(reg - pwm_settings_starting_reg)/PWM_TASK_ELEMENT_COUNT;
 }

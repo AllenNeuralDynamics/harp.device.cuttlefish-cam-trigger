@@ -56,42 +56,41 @@ RegFnPair reg_handler_fns[REG_COUNT]
     {HarpCore::read_reg_generic, write_pwm_edge_event_mask},
     {HarpCore::read_reg_generic, HarpCore::write_to_read_only_reg_error},
 
-    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_frequency_hz},
     {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 
-    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_frequency_hz},
     {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 
-    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_frequency_hz},
     {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 
-    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_frequency_hz},
     {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 
-    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_frequency_hz},
     {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 
-    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_frequency_hz},
     {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 
-    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_frequency_hz},
     {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 
-    {HarpCore::read_reg_generic, write_pwm_gpio_frequency_hz},
+    {HarpCore::read_reg_generic, write_pwm_frequency_hz},
     {HarpCore::read_reg_generic, write_pwm_duty_cycle},
 };
 
 void write_pwm_enabled_mask(msg_t& msg)
 {
-    HarpCore::copy_msg_payload_to_register();
+    HarpCore::copy_msg_payload_to_register(msg);
     uint8_t pwm_enabled_bits = app_regs.PWMEnabledMask;  // make a copy.
     // Enable/disable each pwm output.
     for (auto& pwm_output: pwm_outputs)
     {
         // Update the hardware pwm state.
         // TODO: make sure we've actually written some settings (freq, duty cycle) to this pwm output.
-        bool& pwm_enabled = bool(pwm_enabled_bits & 0x01);
-        if (pwm_enabled)
+        if (pwm_enabled_bits & 0x01)
             pwm_output.enable_output();
         else
             pwm_output.disable_output();
@@ -103,12 +102,11 @@ void write_pwm_enabled_mask(msg_t& msg)
 
 void write_pwm_inverted_mask(msg_t& msg)
 {
-    HarpCore::copy_msg_payload_to_register();
-    uint8_t pwm_enabled_bits = app_regs.PWMInvertedMask;  // make a copy.
-    for (size_t pwm_pin = PORT_BASE; pwm_pin < PORT_BASE + PWM_OUTPUT_COUNT, ++pwm_pin)
+    HarpCore::copy_msg_payload_to_register(msg);
+    uint8_t pwm_inverted_bits = app_regs.PWMInvertedMask;  // make a copy.
+    for (size_t pwm_pin = PORT_BASE; pwm_pin < PORT_BASE + PWM_OUTPUT_COUNT; ++pwm_pin)
     {
-        bool& pwm_inverted = bool(pwm_inverted_bits & 0x01);
-        if (pwm_inverted)
+        if (pwm_inverted_bits & 0x01)
             gpio_set_outover(pwm_pin, GPIO_OVERRIDE_INVERT);
         else
             gpio_set_outover(pwm_pin, GPIO_OVERRIDE_NORMAL);
@@ -120,27 +118,27 @@ void write_pwm_inverted_mask(msg_t& msg)
 
 void write_pwm_edge_event_mask(msg_t& msg)
 {
-    copy_msg_payload_to_register();
+    HarpCore::copy_msg_payload_to_register(msg);
     uint32_t rising_edges_to_monitor = uint32_t(app_regs.RisingEdgeEventMask)
                                        << PORT_BASE;
-    queue_try_add(&enable_task_schedule_queue, &rising_edges_to_monitor);
+    queue_try_add(&rising_edge_monitor_queue, &rising_edges_to_monitor);
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
 }
 
 void write_pwm_frequency_hz(msg_t& msg)
 {
-    copy_msg_payload_to_register();
+    HarpCore::copy_msg_payload_to_register(msg);
     uint32_t pwm_index = reg_to_pwm_index(msg.header.address);
     float& frequency_hz = app_regs.PWMTaskSettings[pwm_index].frequency_hz;
-    pwm_outputs[pwm_index].set_frequency_hz(frequency_hz);
+    pwm_outputs[pwm_index].set_frequency(frequency_hz);
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
 }
 
 void write_pwm_duty_cycle(msg_t& msg)
 {
-    copy_msg_payload_to_register();
+    HarpCore::copy_msg_payload_to_register(msg);
 
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
@@ -163,19 +161,22 @@ void update_app()
     }
     // Disable output waveforms if we've disconnected com ports (safety feature).
     if (HarpCore::get_op_mode() != ACTIVE)
-        set_task_schedule_state(false);
+    {
+        for (auto& pwm_output: pwm_outputs)
+            pwm_output.disable_output();
+    }
 }
 
 void reset_app()
 {
     // Clear all settings configurations to all zero.
-    app_regs.LaserTaskCount = 0;
+    // FIXME: do this.
+    // FIXME: disable event dispatch.
+    // FIXME: clear queues.
     // Configure bus switches for software control of the BNC connectors.
     // Init bus switch pins.
     gpio_init_mask((0x000000FF << PORT_DIR_BASE));
     // Set bus switch to all-outputs and drive an output setting for main IO pins.
     gpio_set_dir_masked(0x000000FF << PORT_DIR_BASE, 0xFFFFFFFF);
     gpio_put_masked(0x000000FF << PORT_DIR_BASE, 0xFFFFFFFF);
-
-    //TODO:  reset core1?.
 }

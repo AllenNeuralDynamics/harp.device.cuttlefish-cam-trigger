@@ -12,10 +12,10 @@
 #define LED0 (24)
 #define LED1 (25)
 
-inline constexpr PWM_OUTPUT_COUNT = 8;
+inline constexpr size_t PWM_OUTPUT_COUNT = 8;
 
-inline constexpr PORT_BASE = 8;
-inline constexpr PORT_DIR_BASE = 16;
+inline constexpr size_t PORT_BASE = 8;
+inline constexpr size_t PORT_DIR_BASE = 16;
 
 inline constexpr uint8_t MAX_QUEUE_SIZE = 32;
 
