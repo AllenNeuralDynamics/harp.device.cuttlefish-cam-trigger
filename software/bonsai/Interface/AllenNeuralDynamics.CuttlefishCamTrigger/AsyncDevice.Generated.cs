@@ -9,7 +9,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     {
         /// <summary>
         /// Initializes a new instance of the asynchronous API to configure and interface
-        /// with Cuttlefish-Cam-Trigger devices on the specified serial port.
+        /// with CuttlefishCamTrigger devices on the specified serial port.
         /// </summary>
         /// <param name="portName">
         /// The name of the serial port used to communicate with the Harp device.
@@ -29,7 +29,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
             if (whoAmI != Device.WhoAmI)
             {
                 var errorMessage = string.Format(
-                    "The device ID {1} on {0} was unexpected. Check whether a Cuttlefish-Cam-Trigger device is connected to the specified serial port.",
+                    "The device ID {1} on {0} was unexpected. Check whether a CuttlefishCamTrigger device is connected to the specified serial port.",
                     portName, whoAmI);
                 throw new HarpException(errorMessage);
             }
@@ -39,7 +39,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents an asynchronous API to configure and interface with Cuttlefish-Cam-Trigger devices.
+    /// Represents an asynchronous API to configure and interface with CuttlefishCamTrigger devices.
     /// </summary>
     public partial class AsyncDevice : Bonsai.Harp.AsyncDevice
     {

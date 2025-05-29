@@ -10,16 +10,16 @@ using System.Xml.Serialization;
 namespace AllenNeuralDynamics.CuttlefishCamTrigger
 {
     /// <summary>
-    /// Generates events and processes commands for the Cuttlefish-Cam-Trigger device connected
+    /// Generates events and processes commands for the CuttlefishCamTrigger device connected
     /// at the specified serial port.
     /// </summary>
     [Combinator(MethodName = nameof(Generate))]
     [WorkflowElementCategory(ElementCategory.Source)]
-    [Description("Generates events and processes commands for the Cuttlefish-Cam-Trigger device.")]
+    [Description("Generates events and processes commands for the CuttlefishCamTrigger device.")]
     public partial class Device : Bonsai.Harp.Device, INamedElement
     {
         /// <summary>
-        /// Represents the unique identity class of the <see cref="Cuttlefish-Cam-Trigger"/> device.
+        /// Represents the unique identity class of the <see cref="CuttlefishCamTrigger"/> device.
         /// This field is constant.
         /// </summary>
         public const int WhoAmI = 1408;
@@ -29,7 +29,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         public Device() : base(WhoAmI) { }
 
-        string INamedElement.Name => nameof(Cuttlefish-Cam-Trigger);
+        string INamedElement.Name => nameof(CuttlefishCamTrigger);
 
         /// <summary>
         /// Gets a read-only mapping from address to register type.
@@ -52,7 +52,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         };
 
         /// <summary>
-        /// Gets the contents of the metadata file describing the <see cref="Cuttlefish-Cam-Trigger"/>
+        /// Gets the contents of the metadata file describing the <see cref="CuttlefishCamTrigger"/>
         /// device registers.
         /// </summary>
         public static readonly string Metadata = GetDeviceMetadata();
@@ -68,14 +68,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that returns the contents of the metadata file
-    /// describing the <see cref="Cuttlefish-Cam-Trigger"/> device registers.
+    /// describing the <see cref="CuttlefishCamTrigger"/> device registers.
     /// </summary>
-    [Description("Returns the contents of the metadata file describing the Cuttlefish-Cam-Trigger device registers.")]
+    [Description("Returns the contents of the metadata file describing the CuttlefishCamTrigger device registers.")]
     public partial class GetDeviceMetadata : Source<string>
     {
         /// <summary>
         /// Returns an observable sequence with the contents of the metadata file
-        /// describing the <see cref="Cuttlefish-Cam-Trigger"/> device registers.
+        /// describing the <see cref="CuttlefishCamTrigger"/> device registers.
         /// </summary>
         /// <returns>
         /// A sequence with a single <see cref="string"/> object representing the
@@ -88,19 +88,19 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents an operator that groups the sequence of <see cref="Cuttlefish-Cam-Trigger"/>" messages by register type.
+    /// Represents an operator that groups the sequence of <see cref="CuttlefishCamTrigger"/>" messages by register type.
     /// </summary>
-    [Description("Groups the sequence of Cuttlefish-Cam-Trigger messages by register type.")]
+    [Description("Groups the sequence of CuttlefishCamTrigger messages by register type.")]
     public partial class GroupByRegister : Combinator<HarpMessage, IGroupedObservable<Type, HarpMessage>>
     {
         /// <summary>
-        /// Groups an observable sequence of <see cref="Cuttlefish-Cam-Trigger"/> messages
+        /// Groups an observable sequence of <see cref="CuttlefishCamTrigger"/> messages
         /// by register type.
         /// </summary>
         /// <param name="source">The sequence of Harp device messages.</param>
         /// <returns>
         /// A sequence of observable groups, each of which corresponds to a unique
-        /// <see cref="Cuttlefish-Cam-Trigger"/> register.
+        /// <see cref="CuttlefishCamTrigger"/> register.
         /// </returns>
         public override IObservable<IGroupedObservable<Type, HarpMessage>> Process(IObservable<HarpMessage> source)
         {
@@ -109,17 +109,17 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents an operator that writes the sequence of <see cref="Cuttlefish-Cam-Trigger"/>" messages
+    /// Represents an operator that writes the sequence of <see cref="CuttlefishCamTrigger"/>" messages
     /// to the standard Harp storage format.
     /// </summary>
-    [Description("Writes the sequence of Cuttlefish-Cam-Trigger messages to the standard Harp storage format.")]
+    [Description("Writes the sequence of CuttlefishCamTrigger messages to the standard Harp storage format.")]
     public partial class DeviceDataWriter : Sink<HarpMessage>, INamedElement
     {
         const string BinaryExtension = ".bin";
         const string MetadataFileName = "device.yml";
         readonly Bonsai.Harp.MessageWriter writer = new();
 
-        string INamedElement.Name => nameof(Cuttlefish-Cam-Trigger) + "DataWriter";
+        string INamedElement.Name => nameof(CuttlefishCamTrigger) + "DataWriter";
 
         /// <summary>
         /// Gets or sets the relative or absolute path on which to save the message data.
@@ -129,7 +129,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         public string Path
         {
             get => System.IO.Path.GetDirectoryName(writer.FileName);
-            set => writer.FileName = System.IO.Path.Combine(value, nameof(Cuttlefish-Cam-Trigger) + BinaryExtension);
+            set => writer.FileName = System.IO.Path.Combine(value, nameof(CuttlefishCamTrigger) + BinaryExtension);
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that filters register-specific messages
-    /// reported by the <see cref="Cuttlefish-Cam-Trigger"/> device.
+    /// reported by the <see cref="CuttlefishCamTrigger"/> device.
     /// </summary>
     /// <seealso cref="EnableOutput"/>
     /// <seealso cref="InvertOutputMask"/>
@@ -286,7 +286,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     [XmlInclude(typeof(Port5FrequencyHz))]
     [XmlInclude(typeof(Port6FrequencyHz))]
     [XmlInclude(typeof(Port7FrequencyHz))]
-    [Description("Filters register-specific messages reported by the Cuttlefish-Cam-Trigger device.")]
+    [Description("Filters register-specific messages reported by the CuttlefishCamTrigger device.")]
     public class FilterRegister : FilterRegisterBuilder, INamedElement
     {
         /// <summary>
@@ -299,13 +299,13 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
         string INamedElement.Name
         {
-            get => $"{nameof(Cuttlefish-Cam-Trigger)}.{GetElementDisplayName(Register)}";
+            get => $"{nameof(CuttlefishCamTrigger)}.{GetElementDisplayName(Register)}";
         }
     }
 
     /// <summary>
     /// Represents an operator which filters and selects specific messages
-    /// reported by the Cuttlefish-Cam-Trigger device.
+    /// reported by the CuttlefishCamTrigger device.
     /// </summary>
     /// <seealso cref="EnableOutput"/>
     /// <seealso cref="InvertOutputMask"/>
@@ -343,7 +343,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     [XmlInclude(typeof(TimestampedPort5FrequencyHz))]
     [XmlInclude(typeof(TimestampedPort6FrequencyHz))]
     [XmlInclude(typeof(TimestampedPort7FrequencyHz))]
-    [Description("Filters and selects specific messages reported by the Cuttlefish-Cam-Trigger device.")]
+    [Description("Filters and selects specific messages reported by the CuttlefishCamTrigger device.")]
     public partial class Parse : ParseBuilder, INamedElement
     {
         /// <summary>
@@ -354,12 +354,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
             Register = new EnableOutput();
         }
 
-        string INamedElement.Name => $"{nameof(Cuttlefish-Cam-Trigger)}.{GetElementDisplayName(Register)}";
+        string INamedElement.Name => $"{nameof(CuttlefishCamTrigger)}.{GetElementDisplayName(Register)}";
     }
 
     /// <summary>
     /// Represents an operator which formats a sequence of values as specific
-    /// Cuttlefish-Cam-Trigger register messages.
+    /// CuttlefishCamTrigger register messages.
     /// </summary>
     /// <seealso cref="EnableOutput"/>
     /// <seealso cref="InvertOutputMask"/>
@@ -385,7 +385,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     [XmlInclude(typeof(Port5FrequencyHz))]
     [XmlInclude(typeof(Port6FrequencyHz))]
     [XmlInclude(typeof(Port7FrequencyHz))]
-    [Description("Formats a sequence of values as specific Cuttlefish-Cam-Trigger register messages.")]
+    [Description("Formats a sequence of values as specific CuttlefishCamTrigger register messages.")]
     public partial class Format : FormatBuilder, INamedElement
     {
         /// <summary>
@@ -396,7 +396,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
             Register = new EnableOutput();
         }
 
-        string INamedElement.Name => $"{nameof(Cuttlefish-Cam-Trigger)}.{GetElementDisplayName(Register)}";
+        string INamedElement.Name => $"{nameof(CuttlefishCamTrigger)}.{GetElementDisplayName(Register)}";
     }
 
     /// <summary>
@@ -1555,7 +1555,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator which creates standard message payloads for the
-    /// Cuttlefish-Cam-Trigger device.
+    /// CuttlefishCamTrigger device.
     /// </summary>
     /// <seealso cref="CreateEnableOutputPayload"/>
     /// <seealso cref="CreateInvertOutputMaskPayload"/>
@@ -1593,7 +1593,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     [XmlInclude(typeof(CreateTimestampedPort5FrequencyHzPayload))]
     [XmlInclude(typeof(CreateTimestampedPort6FrequencyHzPayload))]
     [XmlInclude(typeof(CreateTimestampedPort7FrequencyHzPayload))]
-    [Description("Creates standard message payloads for the Cuttlefish-Cam-Trigger device.")]
+    [Description("Creates standard message payloads for the CuttlefishCamTrigger device.")]
     public partial class CreateMessage : CreateMessageBuilder, INamedElement
     {
         /// <summary>
@@ -1604,7 +1604,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
             Payload = new CreateEnableOutputPayload();
         }
 
-        string INamedElement.Name => $"{nameof(Cuttlefish-Cam-Trigger)}.{GetElementDisplayName(Payload)}";
+        string INamedElement.Name => $"{nameof(CuttlefishCamTrigger)}.{GetElementDisplayName(Payload)}";
     }
 
     /// <summary>
