@@ -12,99 +12,111 @@ registers:
     access: Write
     maskType: Ports
     description: "Bitmask to enable/disable each of the 8 PWM outputs"
-  PWMInvertedMask:
+  PWMSetMask:
     address: 33
+    type: U8
+    access: Write
+    maskType: Ports
+    description: "Bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1."
+  PWMClearMask:
+    address: 34
+    type: U8
+    access: Write
+    maskType: Ports
+    description: "Bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1."
+  PWMInvertedMask:
+    address: 35
     type: U8
     access: Write
     maskType: Ports
     description: "Bitmask to invert each of the 8 PWM outputs if set to 1"
   RisingEdgeEventMask:
-    address: 34
+    address: 36
     type: U8
     access: Write
     description: "Bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs"
   RisingEdgeEvent:
-    address: 35
+    address: 37
     type: U8
     access: Event
     description: "Bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge."
   PWM0FrequencyHz:
-    address: 36
+    address: 38
     type: Float
     access: Write
     description: "PWM output 0 frequency setting in Hz."
   PWM0DutyCycle:
-    address: 37
+    address: 39
     type: Float
     access: Write
     description: "PWM output 0 duty cycle setting (range: 0.0 - 1.0)."
   PWM1FrequencyHz:
-    address: 38
+    address: 40
     type: Float
     access: Write
     description: "PWM output 1 frequency setting in Hz."
   PWM1DutyCycle:
-    address: 39
+    address: 41
     type: Float
     access: Write
     description: "PWM output 1 duty cycle setting (range: 0.0 - 1.0)."
   PWM2FrequencyHz:
-    address: 40
+    address: 42
     type: Float
     access: Write
     description: "PWM output 2 frequency setting in Hz."
   PWM2DutyCycle:
-    address: 41
+    address: 43
     type: Float
     access: Write
     description: "PWM output 2 duty cycle setting (range: 0.0 - 1.0)."
   PWM3FrequencyHz:
-    address: 42
+    address: 44
     type: Float
     access: Write
     description: "PWM output 3 frequency setting in Hz."
   PWM3DutyCycle:
-    address: 43
+    address: 45
     type: Float
     access: Write
     description: "PWM output 3 duty cycle setting (range: 0.0 - 1.0)."
   PWM4FrequencyHz:
-    address: 44
+    address: 46
     type: Float
     access: Write
     description: "PWM output 4 frequency setting in Hz."
   PWM4DutyCycle:
-    address: 45
+    address: 47
     type: Float
     access: Write
     description: "PWM output 4 duty cycle setting (range: 0.0 - 1.0)."
   PWM5FrequencyHz:
-    address: 46
+    address: 48
     type: Float
     access: Write
     description: "PWM output 5 frequency setting in Hz."
   PWM5DutyCycle:
-    address: 47
+    address: 49
     type: Float
     access: Write
     description: "PWM output 5 duty cycle setting (range: 0.0 - 1.0)."
   PWM6FrequencyHz:
-    address: 48
+    address: 50
     type: Float
     access: Write
     description: "PWM output 6 frequency setting in Hz."
   PWM6DutyCycle:
-    address: 49
+    address: 51
     type: Float
     access: Write
     description: "PWM output 6 duty cycle setting (range: 0.0 - 1.0)."
   PWM7FrequencyHz:
-    address: 50
+    address: 52
     type: Float
     access: Write
     description: "PWM output 7 frequency setting in Hz."
   PWM7DutyCycle:
-    address: 51
+    address: 53
     type: Float
     access: Write
     description: "PWM output 7 duty cycle setting (range: 0.0 - 1.0)."
