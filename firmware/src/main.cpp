@@ -46,7 +46,7 @@ int main()
     queue_init(&rising_edge_monitor_queue, sizeof(uint32_t), MAX_QUEUE_SIZE);
     queue_init(&rising_edge_event_queue, sizeof(RisingEdgeEventData), MAX_QUEUE_SIZE);
 
-#if defined(DEBUG) || defined(PROFILE_CPU)
+#if defined(DEBUG)
 #warning "Initializing printf from UART will slow down core1 main loop."
     stdio_uart_init_full(DEBUG_UART, 921600, DEBUG_UART_TX_PIN, -1);
 #endif
@@ -55,6 +55,8 @@ int main()
     (void)multicore_fifo_pop_blocking(); // Wait until core1 is ready.
     multicore_launch_core1(core1_main);
     reset_app(); // Setup GPIO states. Get scheduler ready.
+    for (auto& pwm: pwm_outputs)
+        pwm.set_pwm_step_increments(65535);
     // Loop forever.
     while(true)
         app.run();

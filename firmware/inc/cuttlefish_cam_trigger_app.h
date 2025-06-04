@@ -30,12 +30,14 @@ struct pwm_task_settings_t
 #pragma pack(pop)
 
 
-inline constexpr uint8_t PWM_REG_OFFSET = 4;
+inline constexpr uint8_t PWM_REG_OFFSET = 6;
 
 #pragma pack(push, 1)
 struct app_regs_t
 {
     uint8_t PWMEnabledMask;
+    uint8_t PWMSetMask;
+    uint8_t PWMClearMask;
     uint8_t PWMInvertedMask;
     uint8_t RisingEdgeEventMask;
     uint8_t RisingEdgeEvent;
@@ -53,26 +55,28 @@ extern HarpCApp& app;
 enum AppRegNum: uint32_t
 {
     PWMEnabledMask = 32,
-    PWMInvertedMask = 33,
-    RisingEdgeEventMask = 34,
-    RisingEdgeEvent = 35,
+    PWMSetMask = 33,
+    PWMClearMask = 34,
+    PWMInvertedMask = 35,
+    RisingEdgeEventMask = 36,
+    RisingEdgeEvent = 37,
 
-    PWM0FrequencyHz = 36,
-    PWM0DutyCycle = 37,
-    PWM1FrequencyHz = 38,
-    PWM1DutyCycle = 39,
-    PWM2FrequencyHz = 40,
-    PWM2DutyCycle = 41,
-    PWM3FrequencyHz = 42,
-    PWM3DutyCycle = 43,
-    PWM4FrequencyHz = 44,
-    PWM4DutyCycle = 45,
-    PWM5FrequencyHz = 46,
-    PWM5DutyCycle = 47,
-    PWM6FrequencyHz = 48,
-    PWM6DutyCycle = 49,
-    PWM7FrequencyHz = 50,
-    PWM7DutyCycle = 51
+    PWM0FrequencyHz = 38,
+    PWM0DutyCycle = 39,
+    PWM1FrequencyHz = 40,
+    PWM1DutyCycle = 41,
+    PWM2FrequencyHz = 42,
+    PWM2DutyCycle = 43,
+    PWM3FrequencyHz = 44,
+    PWM3DutyCycle = 45,
+    PWM4FrequencyHz = 46,
+    PWM4DutyCycle = 47,
+    PWM5FrequencyHz = 48,
+    PWM5DutyCycle = 49,
+    PWM6FrequencyHz = 50,
+    PWM6DutyCycle = 51,
+    PWM7FrequencyHz = 52,
+    PWM7DutyCycle = 53
 };
 
 extern app_regs_t app_regs;
@@ -87,6 +91,8 @@ inline uint32_t reg_to_pwm_index(uint32_t reg)
 
 
 void write_pwm_enabled_mask(msg_t& msg);
+void write_pwm_set_mask(msg_t& msg);
+void write_pwm_clear_mask(msg_t& msg);
 void write_pwm_inverted_mask(msg_t& msg);
 void write_pwm_edge_event_mask(msg_t& msg);
 

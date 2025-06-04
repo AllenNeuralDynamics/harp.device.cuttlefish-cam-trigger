@@ -6,15 +6,18 @@ add_definitions(-DGIT_HASH="${COMMIT_ID}") # Usable in source code.
 
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 
-project(cuttlefish)
+project(cuttlefish-cam-trigger)
 
 set(CMAKE_CXX_STANDARD 20)
 
 
 # Compile for profiling/debugging/etc. Default: none enabled.
 #add_definitions(-DDEBUG) # Warning! initializing uart slows down core1 loop.
+
 add_definitions(-DUSBD_MANUFACTURER="Allen Institute")
 add_definitions(-DUSBD_PRODUCT="cuttlefish-cam-trigger")
+
+#add_definitions(-DDEBUG_HARP_MSG_IN)
 
 # Configure the entire program to be copied from flash to RAM at the start.
 # Since our binary size is small (<260KB), this is easier than marking every

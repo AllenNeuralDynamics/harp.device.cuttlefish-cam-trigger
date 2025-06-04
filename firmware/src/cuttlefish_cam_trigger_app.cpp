@@ -12,13 +12,13 @@ PWM pwm_outputs[PWM_OUTPUT_COUNT] =
     {PORT_BASE + 7}
 };
 
-
 app_regs_t app_regs;
-
 
 RegSpecs app_reg_specs[REG_COUNT]
 {
     {(uint8_t*)&app_regs.PWMEnabledMask, sizeof(app_regs.PWMEnabledMask), U8},
+    {(uint8_t*)&app_regs.PWMSetMask, sizeof(app_regs.PWMSetMask), U8},
+    {(uint8_t*)&app_regs.PWMClearMask, sizeof(app_regs.PWMClearMask), U8},
     {(uint8_t*)&app_regs.PWMInvertedMask, sizeof(app_regs.PWMInvertedMask), U8},
     {(uint8_t*)&app_regs.RisingEdgeEventMask, sizeof(app_regs.RisingEdgeEventMask), U8},
     {(uint8_t*)&app_regs.RisingEdgeEvent, sizeof(app_regs.RisingEdgeEvent), U8},
@@ -48,10 +48,11 @@ RegSpecs app_reg_specs[REG_COUNT]
     {(uint8_t*)&app_regs.PWMTaskSettings[7].duty_cycle, sizeof(pwm_task_settings_t::duty_cycle), Float},
 };
 
-
 RegFnPair reg_handler_fns[REG_COUNT]
 {
     {HarpCore::read_reg_generic, write_pwm_enabled_mask},
+    {HarpCore::read_reg_generic, write_pwm_set_mask},
+    {HarpCore::read_reg_generic, write_pwm_clear_mask},
     {HarpCore::read_reg_generic, write_pwm_inverted_mask},
     {HarpCore::read_reg_generic, write_pwm_edge_event_mask},
     {HarpCore::read_reg_generic, HarpCore::write_to_read_only_reg_error},
@@ -86,6 +87,9 @@ void write_pwm_enabled_mask(msg_t& msg)
     HarpCore::copy_msg_payload_to_register(msg);
     uint8_t pwm_enabled_bits = app_regs.PWMEnabledMask;  // make a copy.
     // Enable/disable each pwm output.
+#if(DEBUG)
+    printf("Enabling outputs: 0x%02x.\r\n", pwm_enabled_bits);
+#endif
     for (auto& pwm_output: pwm_outputs)
     {
         // Update the hardware pwm state.
@@ -95,6 +99,36 @@ void write_pwm_enabled_mask(msg_t& msg)
         else
             pwm_output.disable_output();
         pwm_enabled_bits >>= 1;
+    }
+    if (!HarpCore::is_muted())
+        HarpCore::send_harp_reply(WRITE, msg.header.address);
+}
+
+void write_pwm_set_mask(msg_t& msg)
+{
+    HarpCore::copy_msg_payload_to_register(msg);
+    app_regs.PWMEnabledMask |= app_regs.PWMSetMask;
+    uint8_t pwm_set_bits = app_regs.PWMSetMask;  // make a copy.
+    for (auto& pwm_output: pwm_outputs)
+    {
+        if (pwm_set_bits & 0x01)
+            pwm_output.enable_output();
+        pwm_set_bits >>= 1;
+    }
+    if (!HarpCore::is_muted())
+        HarpCore::send_harp_reply(WRITE, msg.header.address);
+}
+
+void write_pwm_clear_mask(msg_t& msg)
+{
+    HarpCore::copy_msg_payload_to_register(msg);
+    uint8_t pwm_clear_bits = app_regs.PWMClearMask;  // make a copy.
+    app_regs.PWMEnabledMask &= ~app_regs.PWMSetMask;
+    for (auto& pwm_output: pwm_outputs)
+    {
+        if (pwm_clear_bits & 0x01)
+            pwm_output.disable_output();
+        pwm_clear_bits >>= 1;
     }
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
@@ -131,6 +165,9 @@ void write_pwm_frequency_hz(msg_t& msg)
     HarpCore::copy_msg_payload_to_register(msg);
     uint32_t pwm_index = reg_to_pwm_index(msg.header.address);
     float& frequency_hz = app_regs.PWMTaskSettings[pwm_index].frequency_hz;
+#if(DEBUG)
+    printf("Setting frequency to %f for pwm output %d.\r\n", frequency_hz, pwm_index);
+#endif
     pwm_outputs[pwm_index].set_frequency(frequency_hz);
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
@@ -139,7 +176,12 @@ void write_pwm_frequency_hz(msg_t& msg)
 void write_pwm_duty_cycle(msg_t& msg)
 {
     HarpCore::copy_msg_payload_to_register(msg);
-
+    uint32_t pwm_index = reg_to_pwm_index(msg.header.address);
+    float& duty_cycle = app_regs.PWMTaskSettings[pwm_index].duty_cycle;
+#if(DEBUG)
+    printf("Setting duty cycle to %f for pwm output %d.\r\n", duty_cycle, pwm_index);
+#endif
+    pwm_outputs[pwm_index].set_duty_cycle(duty_cycle);
     if (!HarpCore::is_muted())
         HarpCore::send_harp_reply(WRITE, msg.header.address);
 }
@@ -155,9 +197,14 @@ void update_app()
         queue_remove_blocking(&rising_edge_event_queue, &event_data);
         // Offset to account for the GPIO to IO mapping.
         app_regs.RisingEdgeEvent = uint8_t(event_data.output_state >> PORT_BASE);
+        uint64_t harp_timestamp_us = HarpCore::system_to_harp_us_64(event_data.time_us);
         //  Send them back over Harp Protocol with a Harp clock domain timestamp.
         HarpCore::send_harp_reply(EVENT, AppRegNum::RisingEdgeEvent,
-                                  HarpCore::system_to_harp_us_64(event_data.time_us));
+                                  harp_timestamp_us);
+#if(DEBUG)
+        printf("Dispatching rising edge event 0x%02x at %lld.\r\n",
+               app_regs.RisingEdgeEvent, harp_timestamp_us);
+#endif
     }
     // Disable output waveforms if we've disconnected com ports (safety feature).
     if (HarpCore::get_op_mode() != ACTIVE)
@@ -169,10 +216,15 @@ void update_app()
 
 void reset_app()
 {
-    // Clear all settings configurations to all zero.
-    // FIXME: do this.
-    // FIXME: disable event dispatch.
-    // FIXME: clear queues.
+    for (auto& pwm : pwm_outputs)
+    {
+        pwm.disable_output();
+        pwm.set_duty_cycle(0.5);
+    }
+    queue_free(&rising_edge_monitor_queue);
+    queue_free(&rising_edge_event_queue);
+    app_regs.PWMEnabledMask = 0;
+    app_regs.RisingEdgeEventMask = 0;
     // Configure bus switches for software control of the BNC connectors.
     // Init bus switch pins.
     gpio_init_mask((0x000000FF << PORT_DIR_BASE));
