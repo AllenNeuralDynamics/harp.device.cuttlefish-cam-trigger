@@ -989,9 +989,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static byte GetPayload(HarpMessage message)
+        public static Ports GetPayload(HarpMessage message)
         {
-            return message.GetPayloadByte();
+            return (Ports)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -999,9 +999,10 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<byte> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<Ports> GetTimestampedPayload(HarpMessage message)
         {
-            return message.GetTimestampedPayloadByte();
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((Ports)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -1013,9 +1014,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A <see cref="HarpMessage"/> object for the <see cref="RisingEdgeEvent"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, byte value)
+        public static HarpMessage FromPayload(MessageType messageType, Ports value)
         {
-            return HarpMessage.FromByte(Address, messageType, value);
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
 
         /// <summary>
@@ -1029,9 +1030,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A <see cref="HarpMessage"/> object for the <see cref="RisingEdgeEvent"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, byte value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, Ports value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, value);
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
     }
 
@@ -1053,7 +1054,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<byte> GetPayload(HarpMessage message)
+        public static Timestamped<Ports> GetPayload(HarpMessage message)
         {
             return RisingEdgeEvent.GetTimestampedPayload(message);
         }
@@ -2961,13 +2962,13 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// Gets or sets the value that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
         /// </summary>
         [Description("The value that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
-        public byte RisingEdgeEvent { get; set; }
+        public Ports RisingEdgeEvent { get; set; }
 
         /// <summary>
         /// Creates a message payload for the RisingEdgeEvent register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public byte GetPayload()
+        public Ports GetPayload()
         {
             return RisingEdgeEvent;
         }

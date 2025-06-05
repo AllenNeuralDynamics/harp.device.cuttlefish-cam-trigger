@@ -288,7 +288,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<byte> ReadRisingEdgeEventAsync(CancellationToken cancellationToken = default)
+        public async Task<Ports> ReadRisingEdgeEventAsync(CancellationToken cancellationToken = default)
         {
             var reply = await CommandAsync(HarpCommand.ReadByte(RisingEdgeEvent.Address), cancellationToken);
             return RisingEdgeEvent.GetPayload(reply);
@@ -304,7 +304,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<byte>> ReadTimestampedRisingEdgeEventAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<Ports>> ReadTimestampedRisingEdgeEventAsync(CancellationToken cancellationToken = default)
         {
             var reply = await CommandAsync(HarpCommand.ReadByte(RisingEdgeEvent.Address), cancellationToken);
             return RisingEdgeEvent.GetTimestampedPayload(reply);
