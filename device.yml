@@ -1,66 +1,111 @@
 %YAML 1.1
 ---
 # yaml-language-server: $schema=https://harp-tech.org/draft-02/schema/device.json
-device: CuttlefishCamTrigger
+device: Cuttlefish-Cam-Trigger
 whoAmI: 1408
 firmwareVersion: "0.1"
 hardwareTargets: "0.0"
 registers:
-  EnableOutput:
+  PwmEnabled:
     address: 32
     type: U8
     access: Write
     maskType: Ports
-    description: "BitMask to enable/disable each of generated outputs."
-  InvertOutputMask:
+    description: "Bitmask to enable/disable each of the 8 Pwm outputs"
+  PwmSet:
     address: 33
     type: U8
     access: Write
     maskType: Ports
-    description: "BitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted."
-  EnableRisingEdgeEvent:
+    description: "Bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1."
+  PwmClear:
     address: 34
     type: U8
     access: Write
-    description: "If enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge."
-  RisingEdgeEvent:
+    maskType: Ports
+    description: "Bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1."
+  PwmInvert:
     address: 35
     type: U8
-    access: Event
-    description: "An event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set."
-  Port0FrequencyHz: &frequencyHz
+    access: Write
+    maskType: Ports
+    description: "Bitmask to invert each of the 8 Pwm outputs if set to 1"
+  RisingEdgeEventEnabled:
     address: 36
+    type: U8
+    access: Write
+    description: "Bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs"
+  RisingEdgeEvent:
+    address: 37
+    type: U8
+    access: Event
+    description: "Bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge."
+  Pwm0FrequencyHz: &PwmFrequencyHz
+    address: 38
     type: Float
     access: Write
-    description: "Frequency of the pulse train generated on Port0. The value is in Hz."
-  Port1FrequencyHz:
-    <<: *frequencyHz
-    address: 38
-    description: "Frequency of the pulse train generated on Port1. The value is in Hz."
-  Port2FrequencyHz:
-    <<: *frequencyHz
+    description: "Pwm output 0 frequency setting in Hz."
+  Pwm0DutyCycle: &PwmDutyCycle
+    address: 39
+    type: Float
+    access: Write
+    description: "Pwm output 0 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm1FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 40
-    description: "Frequency of the pulse train generated on Port2. The value is in Hz."
-  Port3FrequencyHz:
-    <<: *frequencyHz
+    description: "Pwm output 1 frequency setting in Hz."
+  Pwm1DutyCycle:
+    <<: *PwmDutyCycle
+    address: 41
+    description: "Pwm output 1 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm2FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 42
-    description: "Frequency of the pulse train generated on Port3. The value is in Hz."
-  Port4FrequencyHz:
-    <<: *frequencyHz
+    description: "Pwm output 2 frequency setting in Hz."
+  Pwm2DutyCycle:
+    <<: *PwmDutyCycle
+    address: 43
+    description: "Pwm output 2 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm3FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 44
-    description: "Frequency of the pulse train generated on Port4. The value is in Hz."
-  Port5FrequencyHz:
-    <<: *frequencyHz
+    description: "Pwm output 3 frequency setting in Hz."
+  Pwm3DutyCycle:
+    <<: *PwmDutyCycle
+    address: 45
+    description: "Pwm output 3 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm4FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 46
-    description: "Frequency of the pulse train generated on Port5. The value is in Hz."
-  Port6FrequencyHz:
-    <<: *frequencyHz
+    description: "Pwm output 4 frequency setting in Hz."
+  Pwm4DutyCycle:
+    <<: *PwmDutyCycle
+    address: 47
+    description: "Pwm output 4 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm5FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 48
-    description: "Frequency of the pulse train generated on Port6. The value is in Hz."
-  Port7FrequencyHz:
-    <<: *frequencyHz
+    description: "Pwm output 5 frequency setting in Hz."
+  Pwm5DutyCycle:
+    <<: *PwmDutyCycle
+    address: 49
+    description: "Pwm output 5 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm6FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 50
-    description: "Frequency of the pulse train generated on Port7. The value is in Hz."
+    description: "Pwm output 6 frequency setting in Hz."
+  Pwm6DutyCycle:
+    <<: *PwmDutyCycle
+    address: 51
+    description: "Pwm output 6 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm7FrequencyHz:
+    <<: *PwmFrequencyHz
+    address: 52
+    description: "Pwm output 7 frequency setting in Hz."
+  Pwm7DutyCycle:
+    <<: *PwmDutyCycle
+    address: 53
+    description: "Pwm output 7 duty cycle setting (range: 0.0 - 1.0)."
 bitMasks:
   Ports:
     description: "Available ports on the device"
