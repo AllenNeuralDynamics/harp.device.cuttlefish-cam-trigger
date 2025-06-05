@@ -37,18 +37,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         public static new IReadOnlyDictionary<int, Type> RegisterMap { get; } = new Dictionary<int, Type>
             (Bonsai.Harp.Device.RegisterMap.ToDictionary(entry => entry.Key, entry => entry.Value))
         {
-            { 32, typeof(EnableOutput) },
-            { 33, typeof(InvertOutputMask) },
-            { 34, typeof(EnableRisingEdgeEvent) },
-            { 35, typeof(RisingEdgeEvent) },
-            { 36, typeof(Port0FrequencyHz) },
-            { 38, typeof(Port1FrequencyHz) },
-            { 40, typeof(Port2FrequencyHz) },
-            { 42, typeof(Port3FrequencyHz) },
-            { 44, typeof(Port4FrequencyHz) },
-            { 46, typeof(Port5FrequencyHz) },
-            { 48, typeof(Port6FrequencyHz) },
-            { 50, typeof(Port7FrequencyHz) }
+            { 32, typeof(PwmEnabled) },
+            { 33, typeof(PwmSet) },
+            { 34, typeof(PwmClear) },
+            { 35, typeof(PwmInvert) },
+            { 36, typeof(RisingEdgeEventEnabled) },
+            { 37, typeof(RisingEdgeEvent) },
+            { 38, typeof(Pwm0FrequencyHz) },
+            { 39, typeof(Pwm0DutyCycle) },
+            { 40, typeof(Pwm1FrequencyHz) },
+            { 41, typeof(Pwm1DutyCycle) },
+            { 42, typeof(Pwm2FrequencyHz) },
+            { 43, typeof(Pwm2DutyCycle) },
+            { 44, typeof(Pwm3FrequencyHz) },
+            { 45, typeof(Pwm3DutyCycle) },
+            { 46, typeof(Pwm4FrequencyHz) },
+            { 47, typeof(Pwm4DutyCycle) },
+            { 48, typeof(Pwm5FrequencyHz) },
+            { 49, typeof(Pwm5DutyCycle) },
+            { 50, typeof(Pwm6FrequencyHz) },
+            { 51, typeof(Pwm6DutyCycle) },
+            { 52, typeof(Pwm7FrequencyHz) },
+            { 53, typeof(Pwm7DutyCycle) }
         };
 
         /// <summary>
@@ -262,30 +272,50 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     /// Represents an operator that filters register-specific messages
     /// reported by the <see cref="CuttlefishCamTrigger"/> device.
     /// </summary>
-    /// <seealso cref="EnableOutput"/>
-    /// <seealso cref="InvertOutputMask"/>
-    /// <seealso cref="EnableRisingEdgeEvent"/>
+    /// <seealso cref="PwmEnabled"/>
+    /// <seealso cref="PwmSet"/>
+    /// <seealso cref="PwmClear"/>
+    /// <seealso cref="PwmInvert"/>
+    /// <seealso cref="RisingEdgeEventEnabled"/>
     /// <seealso cref="RisingEdgeEvent"/>
-    /// <seealso cref="Port0FrequencyHz"/>
-    /// <seealso cref="Port1FrequencyHz"/>
-    /// <seealso cref="Port2FrequencyHz"/>
-    /// <seealso cref="Port3FrequencyHz"/>
-    /// <seealso cref="Port4FrequencyHz"/>
-    /// <seealso cref="Port5FrequencyHz"/>
-    /// <seealso cref="Port6FrequencyHz"/>
-    /// <seealso cref="Port7FrequencyHz"/>
-    [XmlInclude(typeof(EnableOutput))]
-    [XmlInclude(typeof(InvertOutputMask))]
-    [XmlInclude(typeof(EnableRisingEdgeEvent))]
+    /// <seealso cref="Pwm0FrequencyHz"/>
+    /// <seealso cref="Pwm0DutyCycle"/>
+    /// <seealso cref="Pwm1FrequencyHz"/>
+    /// <seealso cref="Pwm1DutyCycle"/>
+    /// <seealso cref="Pwm2FrequencyHz"/>
+    /// <seealso cref="Pwm2DutyCycle"/>
+    /// <seealso cref="Pwm3FrequencyHz"/>
+    /// <seealso cref="Pwm3DutyCycle"/>
+    /// <seealso cref="Pwm4FrequencyHz"/>
+    /// <seealso cref="Pwm4DutyCycle"/>
+    /// <seealso cref="Pwm5FrequencyHz"/>
+    /// <seealso cref="Pwm5DutyCycle"/>
+    /// <seealso cref="Pwm6FrequencyHz"/>
+    /// <seealso cref="Pwm6DutyCycle"/>
+    /// <seealso cref="Pwm7FrequencyHz"/>
+    /// <seealso cref="Pwm7DutyCycle"/>
+    [XmlInclude(typeof(PwmEnabled))]
+    [XmlInclude(typeof(PwmSet))]
+    [XmlInclude(typeof(PwmClear))]
+    [XmlInclude(typeof(PwmInvert))]
+    [XmlInclude(typeof(RisingEdgeEventEnabled))]
     [XmlInclude(typeof(RisingEdgeEvent))]
-    [XmlInclude(typeof(Port0FrequencyHz))]
-    [XmlInclude(typeof(Port1FrequencyHz))]
-    [XmlInclude(typeof(Port2FrequencyHz))]
-    [XmlInclude(typeof(Port3FrequencyHz))]
-    [XmlInclude(typeof(Port4FrequencyHz))]
-    [XmlInclude(typeof(Port5FrequencyHz))]
-    [XmlInclude(typeof(Port6FrequencyHz))]
-    [XmlInclude(typeof(Port7FrequencyHz))]
+    [XmlInclude(typeof(Pwm0FrequencyHz))]
+    [XmlInclude(typeof(Pwm0DutyCycle))]
+    [XmlInclude(typeof(Pwm1FrequencyHz))]
+    [XmlInclude(typeof(Pwm1DutyCycle))]
+    [XmlInclude(typeof(Pwm2FrequencyHz))]
+    [XmlInclude(typeof(Pwm2DutyCycle))]
+    [XmlInclude(typeof(Pwm3FrequencyHz))]
+    [XmlInclude(typeof(Pwm3DutyCycle))]
+    [XmlInclude(typeof(Pwm4FrequencyHz))]
+    [XmlInclude(typeof(Pwm4DutyCycle))]
+    [XmlInclude(typeof(Pwm5FrequencyHz))]
+    [XmlInclude(typeof(Pwm5DutyCycle))]
+    [XmlInclude(typeof(Pwm6FrequencyHz))]
+    [XmlInclude(typeof(Pwm6DutyCycle))]
+    [XmlInclude(typeof(Pwm7FrequencyHz))]
+    [XmlInclude(typeof(Pwm7DutyCycle))]
     [Description("Filters register-specific messages reported by the CuttlefishCamTrigger device.")]
     public class FilterRegister : FilterRegisterBuilder, INamedElement
     {
@@ -294,7 +324,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         public FilterRegister()
         {
-            Register = new EnableOutput();
+            Register = new PwmEnabled();
         }
 
         string INamedElement.Name
@@ -307,42 +337,72 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     /// Represents an operator which filters and selects specific messages
     /// reported by the CuttlefishCamTrigger device.
     /// </summary>
-    /// <seealso cref="EnableOutput"/>
-    /// <seealso cref="InvertOutputMask"/>
-    /// <seealso cref="EnableRisingEdgeEvent"/>
+    /// <seealso cref="PwmEnabled"/>
+    /// <seealso cref="PwmSet"/>
+    /// <seealso cref="PwmClear"/>
+    /// <seealso cref="PwmInvert"/>
+    /// <seealso cref="RisingEdgeEventEnabled"/>
     /// <seealso cref="RisingEdgeEvent"/>
-    /// <seealso cref="Port0FrequencyHz"/>
-    /// <seealso cref="Port1FrequencyHz"/>
-    /// <seealso cref="Port2FrequencyHz"/>
-    /// <seealso cref="Port3FrequencyHz"/>
-    /// <seealso cref="Port4FrequencyHz"/>
-    /// <seealso cref="Port5FrequencyHz"/>
-    /// <seealso cref="Port6FrequencyHz"/>
-    /// <seealso cref="Port7FrequencyHz"/>
-    [XmlInclude(typeof(EnableOutput))]
-    [XmlInclude(typeof(InvertOutputMask))]
-    [XmlInclude(typeof(EnableRisingEdgeEvent))]
+    /// <seealso cref="Pwm0FrequencyHz"/>
+    /// <seealso cref="Pwm0DutyCycle"/>
+    /// <seealso cref="Pwm1FrequencyHz"/>
+    /// <seealso cref="Pwm1DutyCycle"/>
+    /// <seealso cref="Pwm2FrequencyHz"/>
+    /// <seealso cref="Pwm2DutyCycle"/>
+    /// <seealso cref="Pwm3FrequencyHz"/>
+    /// <seealso cref="Pwm3DutyCycle"/>
+    /// <seealso cref="Pwm4FrequencyHz"/>
+    /// <seealso cref="Pwm4DutyCycle"/>
+    /// <seealso cref="Pwm5FrequencyHz"/>
+    /// <seealso cref="Pwm5DutyCycle"/>
+    /// <seealso cref="Pwm6FrequencyHz"/>
+    /// <seealso cref="Pwm6DutyCycle"/>
+    /// <seealso cref="Pwm7FrequencyHz"/>
+    /// <seealso cref="Pwm7DutyCycle"/>
+    [XmlInclude(typeof(PwmEnabled))]
+    [XmlInclude(typeof(PwmSet))]
+    [XmlInclude(typeof(PwmClear))]
+    [XmlInclude(typeof(PwmInvert))]
+    [XmlInclude(typeof(RisingEdgeEventEnabled))]
     [XmlInclude(typeof(RisingEdgeEvent))]
-    [XmlInclude(typeof(Port0FrequencyHz))]
-    [XmlInclude(typeof(Port1FrequencyHz))]
-    [XmlInclude(typeof(Port2FrequencyHz))]
-    [XmlInclude(typeof(Port3FrequencyHz))]
-    [XmlInclude(typeof(Port4FrequencyHz))]
-    [XmlInclude(typeof(Port5FrequencyHz))]
-    [XmlInclude(typeof(Port6FrequencyHz))]
-    [XmlInclude(typeof(Port7FrequencyHz))]
-    [XmlInclude(typeof(TimestampedEnableOutput))]
-    [XmlInclude(typeof(TimestampedInvertOutputMask))]
-    [XmlInclude(typeof(TimestampedEnableRisingEdgeEvent))]
+    [XmlInclude(typeof(Pwm0FrequencyHz))]
+    [XmlInclude(typeof(Pwm0DutyCycle))]
+    [XmlInclude(typeof(Pwm1FrequencyHz))]
+    [XmlInclude(typeof(Pwm1DutyCycle))]
+    [XmlInclude(typeof(Pwm2FrequencyHz))]
+    [XmlInclude(typeof(Pwm2DutyCycle))]
+    [XmlInclude(typeof(Pwm3FrequencyHz))]
+    [XmlInclude(typeof(Pwm3DutyCycle))]
+    [XmlInclude(typeof(Pwm4FrequencyHz))]
+    [XmlInclude(typeof(Pwm4DutyCycle))]
+    [XmlInclude(typeof(Pwm5FrequencyHz))]
+    [XmlInclude(typeof(Pwm5DutyCycle))]
+    [XmlInclude(typeof(Pwm6FrequencyHz))]
+    [XmlInclude(typeof(Pwm6DutyCycle))]
+    [XmlInclude(typeof(Pwm7FrequencyHz))]
+    [XmlInclude(typeof(Pwm7DutyCycle))]
+    [XmlInclude(typeof(TimestampedPwmEnabled))]
+    [XmlInclude(typeof(TimestampedPwmSet))]
+    [XmlInclude(typeof(TimestampedPwmClear))]
+    [XmlInclude(typeof(TimestampedPwmInvert))]
+    [XmlInclude(typeof(TimestampedRisingEdgeEventEnabled))]
     [XmlInclude(typeof(TimestampedRisingEdgeEvent))]
-    [XmlInclude(typeof(TimestampedPort0FrequencyHz))]
-    [XmlInclude(typeof(TimestampedPort1FrequencyHz))]
-    [XmlInclude(typeof(TimestampedPort2FrequencyHz))]
-    [XmlInclude(typeof(TimestampedPort3FrequencyHz))]
-    [XmlInclude(typeof(TimestampedPort4FrequencyHz))]
-    [XmlInclude(typeof(TimestampedPort5FrequencyHz))]
-    [XmlInclude(typeof(TimestampedPort6FrequencyHz))]
-    [XmlInclude(typeof(TimestampedPort7FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm0FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm0DutyCycle))]
+    [XmlInclude(typeof(TimestampedPwm1FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm1DutyCycle))]
+    [XmlInclude(typeof(TimestampedPwm2FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm2DutyCycle))]
+    [XmlInclude(typeof(TimestampedPwm3FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm3DutyCycle))]
+    [XmlInclude(typeof(TimestampedPwm4FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm4DutyCycle))]
+    [XmlInclude(typeof(TimestampedPwm5FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm5DutyCycle))]
+    [XmlInclude(typeof(TimestampedPwm6FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm6DutyCycle))]
+    [XmlInclude(typeof(TimestampedPwm7FrequencyHz))]
+    [XmlInclude(typeof(TimestampedPwm7DutyCycle))]
     [Description("Filters and selects specific messages reported by the CuttlefishCamTrigger device.")]
     public partial class Parse : ParseBuilder, INamedElement
     {
@@ -351,7 +411,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         public Parse()
         {
-            Register = new EnableOutput();
+            Register = new PwmEnabled();
         }
 
         string INamedElement.Name => $"{nameof(CuttlefishCamTrigger)}.{GetElementDisplayName(Register)}";
@@ -361,30 +421,50 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     /// Represents an operator which formats a sequence of values as specific
     /// CuttlefishCamTrigger register messages.
     /// </summary>
-    /// <seealso cref="EnableOutput"/>
-    /// <seealso cref="InvertOutputMask"/>
-    /// <seealso cref="EnableRisingEdgeEvent"/>
+    /// <seealso cref="PwmEnabled"/>
+    /// <seealso cref="PwmSet"/>
+    /// <seealso cref="PwmClear"/>
+    /// <seealso cref="PwmInvert"/>
+    /// <seealso cref="RisingEdgeEventEnabled"/>
     /// <seealso cref="RisingEdgeEvent"/>
-    /// <seealso cref="Port0FrequencyHz"/>
-    /// <seealso cref="Port1FrequencyHz"/>
-    /// <seealso cref="Port2FrequencyHz"/>
-    /// <seealso cref="Port3FrequencyHz"/>
-    /// <seealso cref="Port4FrequencyHz"/>
-    /// <seealso cref="Port5FrequencyHz"/>
-    /// <seealso cref="Port6FrequencyHz"/>
-    /// <seealso cref="Port7FrequencyHz"/>
-    [XmlInclude(typeof(EnableOutput))]
-    [XmlInclude(typeof(InvertOutputMask))]
-    [XmlInclude(typeof(EnableRisingEdgeEvent))]
+    /// <seealso cref="Pwm0FrequencyHz"/>
+    /// <seealso cref="Pwm0DutyCycle"/>
+    /// <seealso cref="Pwm1FrequencyHz"/>
+    /// <seealso cref="Pwm1DutyCycle"/>
+    /// <seealso cref="Pwm2FrequencyHz"/>
+    /// <seealso cref="Pwm2DutyCycle"/>
+    /// <seealso cref="Pwm3FrequencyHz"/>
+    /// <seealso cref="Pwm3DutyCycle"/>
+    /// <seealso cref="Pwm4FrequencyHz"/>
+    /// <seealso cref="Pwm4DutyCycle"/>
+    /// <seealso cref="Pwm5FrequencyHz"/>
+    /// <seealso cref="Pwm5DutyCycle"/>
+    /// <seealso cref="Pwm6FrequencyHz"/>
+    /// <seealso cref="Pwm6DutyCycle"/>
+    /// <seealso cref="Pwm7FrequencyHz"/>
+    /// <seealso cref="Pwm7DutyCycle"/>
+    [XmlInclude(typeof(PwmEnabled))]
+    [XmlInclude(typeof(PwmSet))]
+    [XmlInclude(typeof(PwmClear))]
+    [XmlInclude(typeof(PwmInvert))]
+    [XmlInclude(typeof(RisingEdgeEventEnabled))]
     [XmlInclude(typeof(RisingEdgeEvent))]
-    [XmlInclude(typeof(Port0FrequencyHz))]
-    [XmlInclude(typeof(Port1FrequencyHz))]
-    [XmlInclude(typeof(Port2FrequencyHz))]
-    [XmlInclude(typeof(Port3FrequencyHz))]
-    [XmlInclude(typeof(Port4FrequencyHz))]
-    [XmlInclude(typeof(Port5FrequencyHz))]
-    [XmlInclude(typeof(Port6FrequencyHz))]
-    [XmlInclude(typeof(Port7FrequencyHz))]
+    [XmlInclude(typeof(Pwm0FrequencyHz))]
+    [XmlInclude(typeof(Pwm0DutyCycle))]
+    [XmlInclude(typeof(Pwm1FrequencyHz))]
+    [XmlInclude(typeof(Pwm1DutyCycle))]
+    [XmlInclude(typeof(Pwm2FrequencyHz))]
+    [XmlInclude(typeof(Pwm2DutyCycle))]
+    [XmlInclude(typeof(Pwm3FrequencyHz))]
+    [XmlInclude(typeof(Pwm3DutyCycle))]
+    [XmlInclude(typeof(Pwm4FrequencyHz))]
+    [XmlInclude(typeof(Pwm4DutyCycle))]
+    [XmlInclude(typeof(Pwm5FrequencyHz))]
+    [XmlInclude(typeof(Pwm5DutyCycle))]
+    [XmlInclude(typeof(Pwm6FrequencyHz))]
+    [XmlInclude(typeof(Pwm6DutyCycle))]
+    [XmlInclude(typeof(Pwm7FrequencyHz))]
+    [XmlInclude(typeof(Pwm7DutyCycle))]
     [Description("Formats a sequence of values as specific CuttlefishCamTrigger register messages.")]
     public partial class Format : FormatBuilder, INamedElement
     {
@@ -393,35 +473,35 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         public Format()
         {
-            Register = new EnableOutput();
+            Register = new PwmEnabled();
         }
 
         string INamedElement.Name => $"{nameof(CuttlefishCamTrigger)}.{GetElementDisplayName(Register)}";
     }
 
     /// <summary>
-    /// Represents a register that bitMask to enable/disable each of generated outputs.
+    /// Represents a register that bitmask to enable/disable each of the 8 Pwm outputs.
     /// </summary>
-    [Description("BitMask to enable/disable each of generated outputs.")]
-    public partial class EnableOutput
+    [Description("Bitmask to enable/disable each of the 8 Pwm outputs")]
+    public partial class PwmEnabled
     {
         /// <summary>
-        /// Represents the address of the <see cref="EnableOutput"/> register. This field is constant.
+        /// Represents the address of the <see cref="PwmEnabled"/> register. This field is constant.
         /// </summary>
         public const int Address = 32;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="EnableOutput"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="PwmEnabled"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="EnableOutput"/> register. This field is constant.
+        /// Represents the length of the <see cref="PwmEnabled"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="EnableOutput"/> register messages.
+        /// Returns the payload data for <see cref="PwmEnabled"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -431,7 +511,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="EnableOutput"/> register messages.
+        /// Returns the timestamped payload data for <see cref="PwmEnabled"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -442,12 +522,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="EnableOutput"/> register.
+        /// Returns a Harp message for the <see cref="PwmEnabled"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EnableOutput"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="PwmEnabled"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, Ports value)
@@ -456,14 +536,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="EnableOutput"/>
+        /// Returns a timestamped Harp message for the <see cref="PwmEnabled"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EnableOutput"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="PwmEnabled"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, Ports value)
@@ -474,51 +554,51 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// EnableOutput register.
+    /// PwmEnabled register.
     /// </summary>
-    /// <seealso cref="EnableOutput"/>
-    [Description("Filters and selects timestamped messages from the EnableOutput register.")]
-    public partial class TimestampedEnableOutput
+    /// <seealso cref="PwmEnabled"/>
+    [Description("Filters and selects timestamped messages from the PwmEnabled register.")]
+    public partial class TimestampedPwmEnabled
     {
         /// <summary>
-        /// Represents the address of the <see cref="EnableOutput"/> register. This field is constant.
+        /// Represents the address of the <see cref="PwmEnabled"/> register. This field is constant.
         /// </summary>
-        public const int Address = EnableOutput.Address;
+        public const int Address = PwmEnabled.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="EnableOutput"/> register messages.
+        /// Returns timestamped payload data for <see cref="PwmEnabled"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<Ports> GetPayload(HarpMessage message)
         {
-            return EnableOutput.GetTimestampedPayload(message);
+            return PwmEnabled.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.
+    /// Represents a register that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
     /// </summary>
-    [Description("BitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.")]
-    public partial class InvertOutputMask
+    [Description("Bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    public partial class PwmSet
     {
         /// <summary>
-        /// Represents the address of the <see cref="InvertOutputMask"/> register. This field is constant.
+        /// Represents the address of the <see cref="PwmSet"/> register. This field is constant.
         /// </summary>
         public const int Address = 33;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="InvertOutputMask"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="PwmSet"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="InvertOutputMask"/> register. This field is constant.
+        /// Represents the length of the <see cref="PwmSet"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="InvertOutputMask"/> register messages.
+        /// Returns the payload data for <see cref="PwmSet"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -528,7 +608,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="InvertOutputMask"/> register messages.
+        /// Returns the timestamped payload data for <see cref="PwmSet"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -539,12 +619,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="InvertOutputMask"/> register.
+        /// Returns a Harp message for the <see cref="PwmSet"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="InvertOutputMask"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="PwmSet"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, Ports value)
@@ -553,14 +633,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="InvertOutputMask"/>
+        /// Returns a timestamped Harp message for the <see cref="PwmSet"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="InvertOutputMask"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="PwmSet"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, Ports value)
@@ -571,51 +651,245 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// InvertOutputMask register.
+    /// PwmSet register.
     /// </summary>
-    /// <seealso cref="InvertOutputMask"/>
-    [Description("Filters and selects timestamped messages from the InvertOutputMask register.")]
-    public partial class TimestampedInvertOutputMask
+    /// <seealso cref="PwmSet"/>
+    [Description("Filters and selects timestamped messages from the PwmSet register.")]
+    public partial class TimestampedPwmSet
     {
         /// <summary>
-        /// Represents the address of the <see cref="InvertOutputMask"/> register. This field is constant.
+        /// Represents the address of the <see cref="PwmSet"/> register. This field is constant.
         /// </summary>
-        public const int Address = InvertOutputMask.Address;
+        public const int Address = PwmSet.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="InvertOutputMask"/> register messages.
+        /// Returns timestamped payload data for <see cref="PwmSet"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<Ports> GetPayload(HarpMessage message)
         {
-            return InvertOutputMask.GetTimestampedPayload(message);
+            return PwmSet.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.
+    /// Represents a register that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
     /// </summary>
-    [Description("If enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.")]
-    public partial class EnableRisingEdgeEvent
+    [Description("Bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    public partial class PwmClear
     {
         /// <summary>
-        /// Represents the address of the <see cref="EnableRisingEdgeEvent"/> register. This field is constant.
+        /// Represents the address of the <see cref="PwmClear"/> register. This field is constant.
         /// </summary>
         public const int Address = 34;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="EnableRisingEdgeEvent"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="PwmClear"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.U8;
 
         /// <summary>
-        /// Represents the length of the <see cref="EnableRisingEdgeEvent"/> register. This field is constant.
+        /// Represents the length of the <see cref="PwmClear"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="EnableRisingEdgeEvent"/> register messages.
+        /// Returns the payload data for <see cref="PwmClear"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static Ports GetPayload(HarpMessage message)
+        {
+            return (Ports)message.GetPayloadByte();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="PwmClear"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<Ports> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((Ports)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="PwmClear"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="PwmClear"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, Ports value)
+        {
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="PwmClear"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="PwmClear"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, Ports value)
+        {
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// PwmClear register.
+    /// </summary>
+    /// <seealso cref="PwmClear"/>
+    [Description("Filters and selects timestamped messages from the PwmClear register.")]
+    public partial class TimestampedPwmClear
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="PwmClear"/> register. This field is constant.
+        /// </summary>
+        public const int Address = PwmClear.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="PwmClear"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<Ports> GetPayload(HarpMessage message)
+        {
+            return PwmClear.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that bitmask to invert each of the 8 Pwm outputs if set to 1.
+    /// </summary>
+    [Description("Bitmask to invert each of the 8 Pwm outputs if set to 1")]
+    public partial class PwmInvert
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="PwmInvert"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 35;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="PwmInvert"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="PwmInvert"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="PwmInvert"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static Ports GetPayload(HarpMessage message)
+        {
+            return (Ports)message.GetPayloadByte();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="PwmInvert"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<Ports> GetTimestampedPayload(HarpMessage message)
+        {
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((Ports)payload.Value, payload.Seconds);
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="PwmInvert"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="PwmInvert"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, Ports value)
+        {
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="PwmInvert"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="PwmInvert"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, Ports value)
+        {
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// PwmInvert register.
+    /// </summary>
+    /// <seealso cref="PwmInvert"/>
+    [Description("Filters and selects timestamped messages from the PwmInvert register.")]
+    public partial class TimestampedPwmInvert
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="PwmInvert"/> register. This field is constant.
+        /// </summary>
+        public const int Address = PwmInvert.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="PwmInvert"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<Ports> GetPayload(HarpMessage message)
+        {
+            return PwmInvert.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+    /// </summary>
+    [Description("Bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs")]
+    public partial class RisingEdgeEventEnabled
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="RisingEdgeEventEnabled"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 36;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="RisingEdgeEventEnabled"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.U8;
+
+        /// <summary>
+        /// Represents the length of the <see cref="RisingEdgeEventEnabled"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="RisingEdgeEventEnabled"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -625,7 +899,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="EnableRisingEdgeEvent"/> register messages.
+        /// Returns the timestamped payload data for <see cref="RisingEdgeEventEnabled"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -635,12 +909,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="EnableRisingEdgeEvent"/> register.
+        /// Returns a Harp message for the <see cref="RisingEdgeEventEnabled"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EnableRisingEdgeEvent"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="RisingEdgeEventEnabled"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, byte value)
@@ -649,14 +923,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="EnableRisingEdgeEvent"/>
+        /// Returns a timestamped Harp message for the <see cref="RisingEdgeEventEnabled"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="EnableRisingEdgeEvent"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="RisingEdgeEventEnabled"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, byte value)
@@ -667,38 +941,38 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// EnableRisingEdgeEvent register.
+    /// RisingEdgeEventEnabled register.
     /// </summary>
-    /// <seealso cref="EnableRisingEdgeEvent"/>
-    [Description("Filters and selects timestamped messages from the EnableRisingEdgeEvent register.")]
-    public partial class TimestampedEnableRisingEdgeEvent
+    /// <seealso cref="RisingEdgeEventEnabled"/>
+    [Description("Filters and selects timestamped messages from the RisingEdgeEventEnabled register.")]
+    public partial class TimestampedRisingEdgeEventEnabled
     {
         /// <summary>
-        /// Represents the address of the <see cref="EnableRisingEdgeEvent"/> register. This field is constant.
+        /// Represents the address of the <see cref="RisingEdgeEventEnabled"/> register. This field is constant.
         /// </summary>
-        public const int Address = EnableRisingEdgeEvent.Address;
+        public const int Address = RisingEdgeEventEnabled.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="EnableRisingEdgeEvent"/> register messages.
+        /// Returns timestamped payload data for <see cref="RisingEdgeEventEnabled"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<byte> GetPayload(HarpMessage message)
         {
-            return EnableRisingEdgeEvent.GetTimestampedPayload(message);
+            return RisingEdgeEventEnabled.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.
+    /// Represents a register that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
     /// </summary>
-    [Description("An event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.")]
+    [Description("Bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
     public partial class RisingEdgeEvent
     {
         /// <summary>
         /// Represents the address of the <see cref="RisingEdgeEvent"/> register. This field is constant.
         /// </summary>
-        public const int Address = 35;
+        public const int Address = 37;
 
         /// <summary>
         /// Represents the payload type of the <see cref="RisingEdgeEvent"/> register. This field is constant.
@@ -786,124 +1060,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents a register that frequency of the pulse train generated on Port0. The value is in Hz.
+    /// Represents a register that pwm output 0 frequency setting in Hz.
     /// </summary>
-    [Description("Frequency of the pulse train generated on Port0. The value is in Hz.")]
-    public partial class Port0FrequencyHz
+    [Description("Pwm output 0 frequency setting in Hz.")]
+    public partial class Pwm0FrequencyHz
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port0FrequencyHz"/> register. This field is constant.
-        /// </summary>
-        public const int Address = 36;
-
-        /// <summary>
-        /// Represents the payload type of the <see cref="Port0FrequencyHz"/> register. This field is constant.
-        /// </summary>
-        public const PayloadType RegisterType = PayloadType.Float;
-
-        /// <summary>
-        /// Represents the length of the <see cref="Port0FrequencyHz"/> register. This field is constant.
-        /// </summary>
-        public const int RegisterLength = 1;
-
-        /// <summary>
-        /// Returns the payload data for <see cref="Port0FrequencyHz"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the message payload.</returns>
-        public static float GetPayload(HarpMessage message)
-        {
-            return message.GetPayloadSingle();
-        }
-
-        /// <summary>
-        /// Returns the timestamped payload data for <see cref="Port0FrequencyHz"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
-        {
-            return message.GetTimestampedPayloadSingle();
-        }
-
-        /// <summary>
-        /// Returns a Harp message for the <see cref="Port0FrequencyHz"/> register.
-        /// </summary>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port0FrequencyHz"/> register
-        /// with the specified message type and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, float value)
-        {
-            return HarpMessage.FromSingle(Address, messageType, value);
-        }
-
-        /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Port0FrequencyHz"/>
-        /// register.
-        /// </summary>
-        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
-        /// <param name="messageType">The type of the Harp message.</param>
-        /// <param name="value">The value to be stored in the message payload.</param>
-        /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port0FrequencyHz"/> register
-        /// with the specified message type, timestamp, and payload.
-        /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
-        {
-            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
-        }
-    }
-
-    /// <summary>
-    /// Provides methods for manipulating timestamped messages from the
-    /// Port0FrequencyHz register.
-    /// </summary>
-    /// <seealso cref="Port0FrequencyHz"/>
-    [Description("Filters and selects timestamped messages from the Port0FrequencyHz register.")]
-    public partial class TimestampedPort0FrequencyHz
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="Port0FrequencyHz"/> register. This field is constant.
-        /// </summary>
-        public const int Address = Port0FrequencyHz.Address;
-
-        /// <summary>
-        /// Returns timestamped payload data for <see cref="Port0FrequencyHz"/> register messages.
-        /// </summary>
-        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
-        /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<float> GetPayload(HarpMessage message)
-        {
-            return Port0FrequencyHz.GetTimestampedPayload(message);
-        }
-    }
-
-    /// <summary>
-    /// Represents a register that frequency of the pulse train generated on Port1. The value is in Hz.
-    /// </summary>
-    [Description("Frequency of the pulse train generated on Port1. The value is in Hz.")]
-    public partial class Port1FrequencyHz
-    {
-        /// <summary>
-        /// Represents the address of the <see cref="Port1FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm0FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int Address = 38;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Port1FrequencyHz"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Pwm0FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Port1FrequencyHz"/> register. This field is constant.
+        /// Represents the length of the <see cref="Pwm0FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Port1FrequencyHz"/> register messages.
+        /// Returns the payload data for <see cref="Pwm0FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -913,7 +1091,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Port1FrequencyHz"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Pwm0FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -923,12 +1101,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Port1FrequencyHz"/> register.
+        /// Returns a Harp message for the <see cref="Pwm0FrequencyHz"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port1FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm0FrequencyHz"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -937,14 +1115,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Port1FrequencyHz"/>
+        /// Returns a timestamped Harp message for the <see cref="Pwm0FrequencyHz"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port1FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm0FrequencyHz"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -955,51 +1133,147 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Port1FrequencyHz register.
+    /// Pwm0FrequencyHz register.
     /// </summary>
-    /// <seealso cref="Port1FrequencyHz"/>
-    [Description("Filters and selects timestamped messages from the Port1FrequencyHz register.")]
-    public partial class TimestampedPort1FrequencyHz
+    /// <seealso cref="Pwm0FrequencyHz"/>
+    [Description("Filters and selects timestamped messages from the Pwm0FrequencyHz register.")]
+    public partial class TimestampedPwm0FrequencyHz
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port1FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm0FrequencyHz"/> register. This field is constant.
         /// </summary>
-        public const int Address = Port1FrequencyHz.Address;
+        public const int Address = Pwm0FrequencyHz.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Port1FrequencyHz"/> register messages.
+        /// Returns timestamped payload data for <see cref="Pwm0FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Port1FrequencyHz.GetTimestampedPayload(message);
+            return Pwm0FrequencyHz.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that frequency of the pulse train generated on Port2. The value is in Hz.
+    /// Represents a register that pwm output 0 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [Description("Frequency of the pulse train generated on Port2. The value is in Hz.")]
-    public partial class Port2FrequencyHz
+    [Description("Pwm output 0 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class Pwm0DutyCycle
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port2FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm0DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 39;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm0DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm0DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm0DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm0DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm0DutyCycle"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm0DutyCycle"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm0DutyCycle"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm0DutyCycle"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm0DutyCycle register.
+    /// </summary>
+    /// <seealso cref="Pwm0DutyCycle"/>
+    [Description("Filters and selects timestamped messages from the Pwm0DutyCycle register.")]
+    public partial class TimestampedPwm0DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm0DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm0DutyCycle.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm0DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm0DutyCycle.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 1 frequency setting in Hz.
+    /// </summary>
+    [Description("Pwm output 1 frequency setting in Hz.")]
+    public partial class Pwm1FrequencyHz
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm1FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int Address = 40;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Port2FrequencyHz"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Pwm1FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Port2FrequencyHz"/> register. This field is constant.
+        /// Represents the length of the <see cref="Pwm1FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Port2FrequencyHz"/> register messages.
+        /// Returns the payload data for <see cref="Pwm1FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1009,7 +1283,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Port2FrequencyHz"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Pwm1FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1019,12 +1293,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Port2FrequencyHz"/> register.
+        /// Returns a Harp message for the <see cref="Pwm1FrequencyHz"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port2FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm1FrequencyHz"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1033,14 +1307,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Port2FrequencyHz"/>
+        /// Returns a timestamped Harp message for the <see cref="Pwm1FrequencyHz"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port2FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm1FrequencyHz"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1051,51 +1325,147 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Port2FrequencyHz register.
+    /// Pwm1FrequencyHz register.
     /// </summary>
-    /// <seealso cref="Port2FrequencyHz"/>
-    [Description("Filters and selects timestamped messages from the Port2FrequencyHz register.")]
-    public partial class TimestampedPort2FrequencyHz
+    /// <seealso cref="Pwm1FrequencyHz"/>
+    [Description("Filters and selects timestamped messages from the Pwm1FrequencyHz register.")]
+    public partial class TimestampedPwm1FrequencyHz
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port2FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm1FrequencyHz"/> register. This field is constant.
         /// </summary>
-        public const int Address = Port2FrequencyHz.Address;
+        public const int Address = Pwm1FrequencyHz.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Port2FrequencyHz"/> register messages.
+        /// Returns timestamped payload data for <see cref="Pwm1FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Port2FrequencyHz.GetTimestampedPayload(message);
+            return Pwm1FrequencyHz.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that frequency of the pulse train generated on Port3. The value is in Hz.
+    /// Represents a register that pwm output 1 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [Description("Frequency of the pulse train generated on Port3. The value is in Hz.")]
-    public partial class Port3FrequencyHz
+    [Description("Pwm output 1 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class Pwm1DutyCycle
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port3FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm1DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 41;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm1DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm1DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm1DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm1DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm1DutyCycle"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm1DutyCycle"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm1DutyCycle"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm1DutyCycle"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm1DutyCycle register.
+    /// </summary>
+    /// <seealso cref="Pwm1DutyCycle"/>
+    [Description("Filters and selects timestamped messages from the Pwm1DutyCycle register.")]
+    public partial class TimestampedPwm1DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm1DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm1DutyCycle.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm1DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm1DutyCycle.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 2 frequency setting in Hz.
+    /// </summary>
+    [Description("Pwm output 2 frequency setting in Hz.")]
+    public partial class Pwm2FrequencyHz
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm2FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int Address = 42;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Port3FrequencyHz"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Pwm2FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Port3FrequencyHz"/> register. This field is constant.
+        /// Represents the length of the <see cref="Pwm2FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Port3FrequencyHz"/> register messages.
+        /// Returns the payload data for <see cref="Pwm2FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1105,7 +1475,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Port3FrequencyHz"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Pwm2FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1115,12 +1485,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Port3FrequencyHz"/> register.
+        /// Returns a Harp message for the <see cref="Pwm2FrequencyHz"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port3FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm2FrequencyHz"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1129,14 +1499,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Port3FrequencyHz"/>
+        /// Returns a timestamped Harp message for the <see cref="Pwm2FrequencyHz"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port3FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm2FrequencyHz"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1147,51 +1517,147 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Port3FrequencyHz register.
+    /// Pwm2FrequencyHz register.
     /// </summary>
-    /// <seealso cref="Port3FrequencyHz"/>
-    [Description("Filters and selects timestamped messages from the Port3FrequencyHz register.")]
-    public partial class TimestampedPort3FrequencyHz
+    /// <seealso cref="Pwm2FrequencyHz"/>
+    [Description("Filters and selects timestamped messages from the Pwm2FrequencyHz register.")]
+    public partial class TimestampedPwm2FrequencyHz
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port3FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm2FrequencyHz"/> register. This field is constant.
         /// </summary>
-        public const int Address = Port3FrequencyHz.Address;
+        public const int Address = Pwm2FrequencyHz.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Port3FrequencyHz"/> register messages.
+        /// Returns timestamped payload data for <see cref="Pwm2FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Port3FrequencyHz.GetTimestampedPayload(message);
+            return Pwm2FrequencyHz.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that frequency of the pulse train generated on Port4. The value is in Hz.
+    /// Represents a register that pwm output 2 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [Description("Frequency of the pulse train generated on Port4. The value is in Hz.")]
-    public partial class Port4FrequencyHz
+    [Description("Pwm output 2 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class Pwm2DutyCycle
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port4FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm2DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 43;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm2DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm2DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm2DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm2DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm2DutyCycle"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm2DutyCycle"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm2DutyCycle"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm2DutyCycle"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm2DutyCycle register.
+    /// </summary>
+    /// <seealso cref="Pwm2DutyCycle"/>
+    [Description("Filters and selects timestamped messages from the Pwm2DutyCycle register.")]
+    public partial class TimestampedPwm2DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm2DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm2DutyCycle.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm2DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm2DutyCycle.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 3 frequency setting in Hz.
+    /// </summary>
+    [Description("Pwm output 3 frequency setting in Hz.")]
+    public partial class Pwm3FrequencyHz
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm3FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int Address = 44;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Port4FrequencyHz"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Pwm3FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Port4FrequencyHz"/> register. This field is constant.
+        /// Represents the length of the <see cref="Pwm3FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Port4FrequencyHz"/> register messages.
+        /// Returns the payload data for <see cref="Pwm3FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1201,7 +1667,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Port4FrequencyHz"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Pwm3FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1211,12 +1677,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Port4FrequencyHz"/> register.
+        /// Returns a Harp message for the <see cref="Pwm3FrequencyHz"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port4FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm3FrequencyHz"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1225,14 +1691,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Port4FrequencyHz"/>
+        /// Returns a timestamped Harp message for the <see cref="Pwm3FrequencyHz"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port4FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm3FrequencyHz"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1243,51 +1709,147 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Port4FrequencyHz register.
+    /// Pwm3FrequencyHz register.
     /// </summary>
-    /// <seealso cref="Port4FrequencyHz"/>
-    [Description("Filters and selects timestamped messages from the Port4FrequencyHz register.")]
-    public partial class TimestampedPort4FrequencyHz
+    /// <seealso cref="Pwm3FrequencyHz"/>
+    [Description("Filters and selects timestamped messages from the Pwm3FrequencyHz register.")]
+    public partial class TimestampedPwm3FrequencyHz
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port4FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm3FrequencyHz"/> register. This field is constant.
         /// </summary>
-        public const int Address = Port4FrequencyHz.Address;
+        public const int Address = Pwm3FrequencyHz.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Port4FrequencyHz"/> register messages.
+        /// Returns timestamped payload data for <see cref="Pwm3FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Port4FrequencyHz.GetTimestampedPayload(message);
+            return Pwm3FrequencyHz.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that frequency of the pulse train generated on Port5. The value is in Hz.
+    /// Represents a register that pwm output 3 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [Description("Frequency of the pulse train generated on Port5. The value is in Hz.")]
-    public partial class Port5FrequencyHz
+    [Description("Pwm output 3 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class Pwm3DutyCycle
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port5FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm3DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 45;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm3DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm3DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm3DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm3DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm3DutyCycle"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm3DutyCycle"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm3DutyCycle"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm3DutyCycle"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm3DutyCycle register.
+    /// </summary>
+    /// <seealso cref="Pwm3DutyCycle"/>
+    [Description("Filters and selects timestamped messages from the Pwm3DutyCycle register.")]
+    public partial class TimestampedPwm3DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm3DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm3DutyCycle.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm3DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm3DutyCycle.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 4 frequency setting in Hz.
+    /// </summary>
+    [Description("Pwm output 4 frequency setting in Hz.")]
+    public partial class Pwm4FrequencyHz
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm4FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int Address = 46;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Port5FrequencyHz"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Pwm4FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Port5FrequencyHz"/> register. This field is constant.
+        /// Represents the length of the <see cref="Pwm4FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Port5FrequencyHz"/> register messages.
+        /// Returns the payload data for <see cref="Pwm4FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1297,7 +1859,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Port5FrequencyHz"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Pwm4FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1307,12 +1869,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Port5FrequencyHz"/> register.
+        /// Returns a Harp message for the <see cref="Pwm4FrequencyHz"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port5FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm4FrequencyHz"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1321,14 +1883,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Port5FrequencyHz"/>
+        /// Returns a timestamped Harp message for the <see cref="Pwm4FrequencyHz"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port5FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm4FrequencyHz"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1339,51 +1901,147 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Port5FrequencyHz register.
+    /// Pwm4FrequencyHz register.
     /// </summary>
-    /// <seealso cref="Port5FrequencyHz"/>
-    [Description("Filters and selects timestamped messages from the Port5FrequencyHz register.")]
-    public partial class TimestampedPort5FrequencyHz
+    /// <seealso cref="Pwm4FrequencyHz"/>
+    [Description("Filters and selects timestamped messages from the Pwm4FrequencyHz register.")]
+    public partial class TimestampedPwm4FrequencyHz
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port5FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm4FrequencyHz"/> register. This field is constant.
         /// </summary>
-        public const int Address = Port5FrequencyHz.Address;
+        public const int Address = Pwm4FrequencyHz.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Port5FrequencyHz"/> register messages.
+        /// Returns timestamped payload data for <see cref="Pwm4FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Port5FrequencyHz.GetTimestampedPayload(message);
+            return Pwm4FrequencyHz.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that frequency of the pulse train generated on Port6. The value is in Hz.
+    /// Represents a register that pwm output 4 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [Description("Frequency of the pulse train generated on Port6. The value is in Hz.")]
-    public partial class Port6FrequencyHz
+    [Description("Pwm output 4 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class Pwm4DutyCycle
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port6FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm4DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 47;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm4DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm4DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm4DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm4DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm4DutyCycle"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm4DutyCycle"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm4DutyCycle"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm4DutyCycle"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm4DutyCycle register.
+    /// </summary>
+    /// <seealso cref="Pwm4DutyCycle"/>
+    [Description("Filters and selects timestamped messages from the Pwm4DutyCycle register.")]
+    public partial class TimestampedPwm4DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm4DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm4DutyCycle.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm4DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm4DutyCycle.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 5 frequency setting in Hz.
+    /// </summary>
+    [Description("Pwm output 5 frequency setting in Hz.")]
+    public partial class Pwm5FrequencyHz
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm5FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int Address = 48;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Port6FrequencyHz"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Pwm5FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Port6FrequencyHz"/> register. This field is constant.
+        /// Represents the length of the <see cref="Pwm5FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Port6FrequencyHz"/> register messages.
+        /// Returns the payload data for <see cref="Pwm5FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1393,7 +2051,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Port6FrequencyHz"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Pwm5FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1403,12 +2061,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Port6FrequencyHz"/> register.
+        /// Returns a Harp message for the <see cref="Pwm5FrequencyHz"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port6FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm5FrequencyHz"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1417,14 +2075,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Port6FrequencyHz"/>
+        /// Returns a timestamped Harp message for the <see cref="Pwm5FrequencyHz"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port6FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm5FrequencyHz"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1435,51 +2093,147 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Port6FrequencyHz register.
+    /// Pwm5FrequencyHz register.
     /// </summary>
-    /// <seealso cref="Port6FrequencyHz"/>
-    [Description("Filters and selects timestamped messages from the Port6FrequencyHz register.")]
-    public partial class TimestampedPort6FrequencyHz
+    /// <seealso cref="Pwm5FrequencyHz"/>
+    [Description("Filters and selects timestamped messages from the Pwm5FrequencyHz register.")]
+    public partial class TimestampedPwm5FrequencyHz
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port6FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm5FrequencyHz"/> register. This field is constant.
         /// </summary>
-        public const int Address = Port6FrequencyHz.Address;
+        public const int Address = Pwm5FrequencyHz.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Port6FrequencyHz"/> register messages.
+        /// Returns timestamped payload data for <see cref="Pwm5FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Port6FrequencyHz.GetTimestampedPayload(message);
+            return Pwm5FrequencyHz.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that frequency of the pulse train generated on Port7. The value is in Hz.
+    /// Represents a register that pwm output 5 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [Description("Frequency of the pulse train generated on Port7. The value is in Hz.")]
-    public partial class Port7FrequencyHz
+    [Description("Pwm output 5 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class Pwm5DutyCycle
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port7FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm5DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 49;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm5DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm5DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm5DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm5DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm5DutyCycle"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm5DutyCycle"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm5DutyCycle"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm5DutyCycle"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm5DutyCycle register.
+    /// </summary>
+    /// <seealso cref="Pwm5DutyCycle"/>
+    [Description("Filters and selects timestamped messages from the Pwm5DutyCycle register.")]
+    public partial class TimestampedPwm5DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm5DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm5DutyCycle.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm5DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm5DutyCycle.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 6 frequency setting in Hz.
+    /// </summary>
+    [Description("Pwm output 6 frequency setting in Hz.")]
+    public partial class Pwm6FrequencyHz
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm6FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int Address = 50;
 
         /// <summary>
-        /// Represents the payload type of the <see cref="Port7FrequencyHz"/> register. This field is constant.
+        /// Represents the payload type of the <see cref="Pwm6FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const PayloadType RegisterType = PayloadType.Float;
 
         /// <summary>
-        /// Represents the length of the <see cref="Port7FrequencyHz"/> register. This field is constant.
+        /// Represents the length of the <see cref="Pwm6FrequencyHz"/> register. This field is constant.
         /// </summary>
         public const int RegisterLength = 1;
 
         /// <summary>
-        /// Returns the payload data for <see cref="Port7FrequencyHz"/> register messages.
+        /// Returns the payload data for <see cref="Pwm6FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
@@ -1489,7 +2243,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns the timestamped payload data for <see cref="Port7FrequencyHz"/> register messages.
+        /// Returns the timestamped payload data for <see cref="Pwm6FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
@@ -1499,12 +2253,12 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a Harp message for the <see cref="Port7FrequencyHz"/> register.
+        /// Returns a Harp message for the <see cref="Pwm6FrequencyHz"/> register.
         /// </summary>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port7FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm6FrequencyHz"/> register
         /// with the specified message type and payload.
         /// </returns>
         public static HarpMessage FromPayload(MessageType messageType, float value)
@@ -1513,14 +2267,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Returns a timestamped Harp message for the <see cref="Port7FrequencyHz"/>
+        /// Returns a timestamped Harp message for the <see cref="Pwm6FrequencyHz"/>
         /// register.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">The type of the Harp message.</param>
         /// <param name="value">The value to be stored in the message payload.</param>
         /// <returns>
-        /// A <see cref="HarpMessage"/> object for the <see cref="Port7FrequencyHz"/> register
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm6FrequencyHz"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
         public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
@@ -1531,25 +2285,313 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Provides methods for manipulating timestamped messages from the
-    /// Port7FrequencyHz register.
+    /// Pwm6FrequencyHz register.
     /// </summary>
-    /// <seealso cref="Port7FrequencyHz"/>
-    [Description("Filters and selects timestamped messages from the Port7FrequencyHz register.")]
-    public partial class TimestampedPort7FrequencyHz
+    /// <seealso cref="Pwm6FrequencyHz"/>
+    [Description("Filters and selects timestamped messages from the Pwm6FrequencyHz register.")]
+    public partial class TimestampedPwm6FrequencyHz
     {
         /// <summary>
-        /// Represents the address of the <see cref="Port7FrequencyHz"/> register. This field is constant.
+        /// Represents the address of the <see cref="Pwm6FrequencyHz"/> register. This field is constant.
         /// </summary>
-        public const int Address = Port7FrequencyHz.Address;
+        public const int Address = Pwm6FrequencyHz.Address;
 
         /// <summary>
-        /// Returns timestamped payload data for <see cref="Port7FrequencyHz"/> register messages.
+        /// Returns timestamped payload data for <see cref="Pwm6FrequencyHz"/> register messages.
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
         public static Timestamped<float> GetPayload(HarpMessage message)
         {
-            return Port7FrequencyHz.GetTimestampedPayload(message);
+            return Pwm6FrequencyHz.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 6 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [Description("Pwm output 6 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class Pwm6DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm6DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 51;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm6DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm6DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm6DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm6DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm6DutyCycle"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm6DutyCycle"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm6DutyCycle"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm6DutyCycle"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm6DutyCycle register.
+    /// </summary>
+    /// <seealso cref="Pwm6DutyCycle"/>
+    [Description("Filters and selects timestamped messages from the Pwm6DutyCycle register.")]
+    public partial class TimestampedPwm6DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm6DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm6DutyCycle.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm6DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm6DutyCycle.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 7 frequency setting in Hz.
+    /// </summary>
+    [Description("Pwm output 7 frequency setting in Hz.")]
+    public partial class Pwm7FrequencyHz
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm7FrequencyHz"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 52;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm7FrequencyHz"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm7FrequencyHz"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm7FrequencyHz"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm7FrequencyHz"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm7FrequencyHz"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm7FrequencyHz"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm7FrequencyHz"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm7FrequencyHz"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm7FrequencyHz register.
+    /// </summary>
+    /// <seealso cref="Pwm7FrequencyHz"/>
+    [Description("Filters and selects timestamped messages from the Pwm7FrequencyHz register.")]
+    public partial class TimestampedPwm7FrequencyHz
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm7FrequencyHz"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm7FrequencyHz.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm7FrequencyHz"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm7FrequencyHz.GetTimestampedPayload(message);
+        }
+    }
+
+    /// <summary>
+    /// Represents a register that pwm output 7 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [Description("Pwm output 7 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class Pwm7DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm7DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = 53;
+
+        /// <summary>
+        /// Represents the payload type of the <see cref="Pwm7DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const PayloadType RegisterType = PayloadType.Float;
+
+        /// <summary>
+        /// Represents the length of the <see cref="Pwm7DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int RegisterLength = 1;
+
+        /// <summary>
+        /// Returns the payload data for <see cref="Pwm7DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the message payload.</returns>
+        public static float GetPayload(HarpMessage message)
+        {
+            return message.GetPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns the timestamped payload data for <see cref="Pwm7DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetTimestampedPayload(HarpMessage message)
+        {
+            return message.GetTimestampedPayloadSingle();
+        }
+
+        /// <summary>
+        /// Returns a Harp message for the <see cref="Pwm7DutyCycle"/> register.
+        /// </summary>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm7DutyCycle"/> register
+        /// with the specified message type and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, messageType, value);
+        }
+
+        /// <summary>
+        /// Returns a timestamped Harp message for the <see cref="Pwm7DutyCycle"/>
+        /// register.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">The type of the Harp message.</param>
+        /// <param name="value">The value to be stored in the message payload.</param>
+        /// <returns>
+        /// A <see cref="HarpMessage"/> object for the <see cref="Pwm7DutyCycle"/> register
+        /// with the specified message type, timestamp, and payload.
+        /// </returns>
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, float value)
+        {
+            return HarpMessage.FromSingle(Address, timestamp, messageType, value);
+        }
+    }
+
+    /// <summary>
+    /// Provides methods for manipulating timestamped messages from the
+    /// Pwm7DutyCycle register.
+    /// </summary>
+    /// <seealso cref="Pwm7DutyCycle"/>
+    [Description("Filters and selects timestamped messages from the Pwm7DutyCycle register.")]
+    public partial class TimestampedPwm7DutyCycle
+    {
+        /// <summary>
+        /// Represents the address of the <see cref="Pwm7DutyCycle"/> register. This field is constant.
+        /// </summary>
+        public const int Address = Pwm7DutyCycle.Address;
+
+        /// <summary>
+        /// Returns timestamped payload data for <see cref="Pwm7DutyCycle"/> register messages.
+        /// </summary>
+        /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
+        /// <returns>A value representing the timestamped message payload.</returns>
+        public static Timestamped<float> GetPayload(HarpMessage message)
+        {
+            return Pwm7DutyCycle.GetTimestampedPayload(message);
         }
     }
 
@@ -1557,42 +2599,72 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     /// Represents an operator which creates standard message payloads for the
     /// CuttlefishCamTrigger device.
     /// </summary>
-    /// <seealso cref="CreateEnableOutputPayload"/>
-    /// <seealso cref="CreateInvertOutputMaskPayload"/>
-    /// <seealso cref="CreateEnableRisingEdgeEventPayload"/>
+    /// <seealso cref="CreatePwmEnabledPayload"/>
+    /// <seealso cref="CreatePwmSetPayload"/>
+    /// <seealso cref="CreatePwmClearPayload"/>
+    /// <seealso cref="CreatePwmInvertPayload"/>
+    /// <seealso cref="CreateRisingEdgeEventEnabledPayload"/>
     /// <seealso cref="CreateRisingEdgeEventPayload"/>
-    /// <seealso cref="CreatePort0FrequencyHzPayload"/>
-    /// <seealso cref="CreatePort1FrequencyHzPayload"/>
-    /// <seealso cref="CreatePort2FrequencyHzPayload"/>
-    /// <seealso cref="CreatePort3FrequencyHzPayload"/>
-    /// <seealso cref="CreatePort4FrequencyHzPayload"/>
-    /// <seealso cref="CreatePort5FrequencyHzPayload"/>
-    /// <seealso cref="CreatePort6FrequencyHzPayload"/>
-    /// <seealso cref="CreatePort7FrequencyHzPayload"/>
-    [XmlInclude(typeof(CreateEnableOutputPayload))]
-    [XmlInclude(typeof(CreateInvertOutputMaskPayload))]
-    [XmlInclude(typeof(CreateEnableRisingEdgeEventPayload))]
+    /// <seealso cref="CreatePwm0FrequencyHzPayload"/>
+    /// <seealso cref="CreatePwm0DutyCyclePayload"/>
+    /// <seealso cref="CreatePwm1FrequencyHzPayload"/>
+    /// <seealso cref="CreatePwm1DutyCyclePayload"/>
+    /// <seealso cref="CreatePwm2FrequencyHzPayload"/>
+    /// <seealso cref="CreatePwm2DutyCyclePayload"/>
+    /// <seealso cref="CreatePwm3FrequencyHzPayload"/>
+    /// <seealso cref="CreatePwm3DutyCyclePayload"/>
+    /// <seealso cref="CreatePwm4FrequencyHzPayload"/>
+    /// <seealso cref="CreatePwm4DutyCyclePayload"/>
+    /// <seealso cref="CreatePwm5FrequencyHzPayload"/>
+    /// <seealso cref="CreatePwm5DutyCyclePayload"/>
+    /// <seealso cref="CreatePwm6FrequencyHzPayload"/>
+    /// <seealso cref="CreatePwm6DutyCyclePayload"/>
+    /// <seealso cref="CreatePwm7FrequencyHzPayload"/>
+    /// <seealso cref="CreatePwm7DutyCyclePayload"/>
+    [XmlInclude(typeof(CreatePwmEnabledPayload))]
+    [XmlInclude(typeof(CreatePwmSetPayload))]
+    [XmlInclude(typeof(CreatePwmClearPayload))]
+    [XmlInclude(typeof(CreatePwmInvertPayload))]
+    [XmlInclude(typeof(CreateRisingEdgeEventEnabledPayload))]
     [XmlInclude(typeof(CreateRisingEdgeEventPayload))]
-    [XmlInclude(typeof(CreatePort0FrequencyHzPayload))]
-    [XmlInclude(typeof(CreatePort1FrequencyHzPayload))]
-    [XmlInclude(typeof(CreatePort2FrequencyHzPayload))]
-    [XmlInclude(typeof(CreatePort3FrequencyHzPayload))]
-    [XmlInclude(typeof(CreatePort4FrequencyHzPayload))]
-    [XmlInclude(typeof(CreatePort5FrequencyHzPayload))]
-    [XmlInclude(typeof(CreatePort6FrequencyHzPayload))]
-    [XmlInclude(typeof(CreatePort7FrequencyHzPayload))]
-    [XmlInclude(typeof(CreateTimestampedEnableOutputPayload))]
-    [XmlInclude(typeof(CreateTimestampedInvertOutputMaskPayload))]
-    [XmlInclude(typeof(CreateTimestampedEnableRisingEdgeEventPayload))]
+    [XmlInclude(typeof(CreatePwm0FrequencyHzPayload))]
+    [XmlInclude(typeof(CreatePwm0DutyCyclePayload))]
+    [XmlInclude(typeof(CreatePwm1FrequencyHzPayload))]
+    [XmlInclude(typeof(CreatePwm1DutyCyclePayload))]
+    [XmlInclude(typeof(CreatePwm2FrequencyHzPayload))]
+    [XmlInclude(typeof(CreatePwm2DutyCyclePayload))]
+    [XmlInclude(typeof(CreatePwm3FrequencyHzPayload))]
+    [XmlInclude(typeof(CreatePwm3DutyCyclePayload))]
+    [XmlInclude(typeof(CreatePwm4FrequencyHzPayload))]
+    [XmlInclude(typeof(CreatePwm4DutyCyclePayload))]
+    [XmlInclude(typeof(CreatePwm5FrequencyHzPayload))]
+    [XmlInclude(typeof(CreatePwm5DutyCyclePayload))]
+    [XmlInclude(typeof(CreatePwm6FrequencyHzPayload))]
+    [XmlInclude(typeof(CreatePwm6DutyCyclePayload))]
+    [XmlInclude(typeof(CreatePwm7FrequencyHzPayload))]
+    [XmlInclude(typeof(CreatePwm7DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedPwmEnabledPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwmSetPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwmClearPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwmInvertPayload))]
+    [XmlInclude(typeof(CreateTimestampedRisingEdgeEventEnabledPayload))]
     [XmlInclude(typeof(CreateTimestampedRisingEdgeEventPayload))]
-    [XmlInclude(typeof(CreateTimestampedPort0FrequencyHzPayload))]
-    [XmlInclude(typeof(CreateTimestampedPort1FrequencyHzPayload))]
-    [XmlInclude(typeof(CreateTimestampedPort2FrequencyHzPayload))]
-    [XmlInclude(typeof(CreateTimestampedPort3FrequencyHzPayload))]
-    [XmlInclude(typeof(CreateTimestampedPort4FrequencyHzPayload))]
-    [XmlInclude(typeof(CreateTimestampedPort5FrequencyHzPayload))]
-    [XmlInclude(typeof(CreateTimestampedPort6FrequencyHzPayload))]
-    [XmlInclude(typeof(CreateTimestampedPort7FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm0FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm0DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm1FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm1DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm2FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm2DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm3FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm3DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm4FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm4DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm5FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm5DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm6FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm6DutyCyclePayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm7FrequencyHzPayload))]
+    [XmlInclude(typeof(CreateTimestampedPwm7DutyCyclePayload))]
     [Description("Creates standard message payloads for the CuttlefishCamTrigger device.")]
     public partial class CreateMessage : CreateMessageBuilder, INamedElement
     {
@@ -1601,7 +2673,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         public CreateMessage()
         {
-            Payload = new CreateEnableOutputPayload();
+            Payload = new CreatePwmEnabledPayload();
         }
 
         string INamedElement.Name => $"{nameof(CuttlefishCamTrigger)}.{GetElementDisplayName(Payload)}";
@@ -1609,178 +2681,286 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that bitMask to enable/disable each of generated outputs.
+    /// that bitmask to enable/disable each of the 8 Pwm outputs.
     /// </summary>
-    [DisplayName("EnableOutputPayload")]
-    [Description("Creates a message payload that bitMask to enable/disable each of generated outputs.")]
-    public partial class CreateEnableOutputPayload
+    [DisplayName("PwmEnabledPayload")]
+    [Description("Creates a message payload that bitmask to enable/disable each of the 8 Pwm outputs.")]
+    public partial class CreatePwmEnabledPayload
     {
         /// <summary>
-        /// Gets or sets the value that bitMask to enable/disable each of generated outputs.
+        /// Gets or sets the value that bitmask to enable/disable each of the 8 Pwm outputs.
         /// </summary>
-        [Description("The value that bitMask to enable/disable each of generated outputs.")]
-        public Ports EnableOutput { get; set; }
+        [Description("The value that bitmask to enable/disable each of the 8 Pwm outputs.")]
+        public Ports PwmEnabled { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the EnableOutput register.
+        /// Creates a message payload for the PwmEnabled register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public Ports GetPayload()
         {
-            return EnableOutput;
+            return PwmEnabled;
         }
 
         /// <summary>
-        /// Creates a message that bitMask to enable/disable each of generated outputs.
+        /// Creates a message that bitmask to enable/disable each of the 8 Pwm outputs.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the EnableOutput register.</returns>
+        /// <returns>A new message for the PwmEnabled register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.EnableOutput.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.PwmEnabled.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that bitMask to enable/disable each of generated outputs.
+    /// that bitmask to enable/disable each of the 8 Pwm outputs.
     /// </summary>
-    [DisplayName("TimestampedEnableOutputPayload")]
-    [Description("Creates a timestamped message payload that bitMask to enable/disable each of generated outputs.")]
-    public partial class CreateTimestampedEnableOutputPayload : CreateEnableOutputPayload
+    [DisplayName("TimestampedPwmEnabledPayload")]
+    [Description("Creates a timestamped message payload that bitmask to enable/disable each of the 8 Pwm outputs.")]
+    public partial class CreateTimestampedPwmEnabledPayload : CreatePwmEnabledPayload
     {
         /// <summary>
-        /// Creates a timestamped message that bitMask to enable/disable each of generated outputs.
+        /// Creates a timestamped message that bitmask to enable/disable each of the 8 Pwm outputs.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the EnableOutput register.</returns>
+        /// <returns>A new timestamped message for the PwmEnabled register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.EnableOutput.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.PwmEnabled.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.
+    /// that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
     /// </summary>
-    [DisplayName("InvertOutputMaskPayload")]
-    [Description("Creates a message payload that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.")]
-    public partial class CreateInvertOutputMaskPayload
+    [DisplayName("PwmSetPayload")]
+    [Description("Creates a message payload that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    public partial class CreatePwmSetPayload
     {
         /// <summary>
-        /// Gets or sets the value that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.
+        /// Gets or sets the value that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
         /// </summary>
-        [Description("The value that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.")]
-        public Ports InvertOutputMask { get; set; }
+        [Description("The value that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+        public Ports PwmSet { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the InvertOutputMask register.
+        /// Creates a message payload for the PwmSet register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public Ports GetPayload()
         {
-            return InvertOutputMask;
+            return PwmSet;
         }
 
         /// <summary>
-        /// Creates a message that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.
+        /// Creates a message that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the InvertOutputMask register.</returns>
+        /// <returns>A new message for the PwmSet register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.InvertOutputMask.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.PwmSet.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.
+    /// that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
     /// </summary>
-    [DisplayName("TimestampedInvertOutputMaskPayload")]
-    [Description("Creates a timestamped message payload that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.")]
-    public partial class CreateTimestampedInvertOutputMaskPayload : CreateInvertOutputMaskPayload
+    [DisplayName("TimestampedPwmSetPayload")]
+    [Description("Creates a timestamped message payload that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    public partial class CreateTimestampedPwmSetPayload : CreatePwmSetPayload
     {
         /// <summary>
-        /// Creates a timestamped message that bitMask to invert each of the output lines. If a bit is set, the corresponding output will be inverted.
+        /// Creates a timestamped message that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the InvertOutputMask register.</returns>
+        /// <returns>A new timestamped message for the PwmSet register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.InvertOutputMask.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.PwmSet.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.
+    /// that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
     /// </summary>
-    [DisplayName("EnableRisingEdgeEventPayload")]
-    [Description("Creates a message payload that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.")]
-    public partial class CreateEnableRisingEdgeEventPayload
+    [DisplayName("PwmClearPayload")]
+    [Description("Creates a message payload that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    public partial class CreatePwmClearPayload
     {
         /// <summary>
-        /// Gets or sets the value that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.
+        /// Gets or sets the value that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
         /// </summary>
-        [Description("The value that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.")]
-        public byte EnableRisingEdgeEvent { get; set; }
+        [Description("The value that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+        public Ports PwmClear { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the EnableRisingEdgeEvent register.
+        /// Creates a message payload for the PwmClear register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public Ports GetPayload()
+        {
+            return PwmClear;
+        }
+
+        /// <summary>
+        /// Creates a message that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PwmClear register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.PwmClear.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+    /// </summary>
+    [DisplayName("TimestampedPwmClearPayload")]
+    [Description("Creates a timestamped message payload that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    public partial class CreateTimestampedPwmClearPayload : CreatePwmClearPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PwmClear register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.PwmClear.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that bitmask to invert each of the 8 Pwm outputs if set to 1.
+    /// </summary>
+    [DisplayName("PwmInvertPayload")]
+    [Description("Creates a message payload that bitmask to invert each of the 8 Pwm outputs if set to 1.")]
+    public partial class CreatePwmInvertPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that bitmask to invert each of the 8 Pwm outputs if set to 1.
+        /// </summary>
+        [Description("The value that bitmask to invert each of the 8 Pwm outputs if set to 1.")]
+        public Ports PwmInvert { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the PwmInvert register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public Ports GetPayload()
+        {
+            return PwmInvert;
+        }
+
+        /// <summary>
+        /// Creates a message that bitmask to invert each of the 8 Pwm outputs if set to 1.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the PwmInvert register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.PwmInvert.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that bitmask to invert each of the 8 Pwm outputs if set to 1.
+    /// </summary>
+    [DisplayName("TimestampedPwmInvertPayload")]
+    [Description("Creates a timestamped message payload that bitmask to invert each of the 8 Pwm outputs if set to 1.")]
+    public partial class CreateTimestampedPwmInvertPayload : CreatePwmInvertPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that bitmask to invert each of the 8 Pwm outputs if set to 1.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the PwmInvert register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.PwmInvert.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+    /// </summary>
+    [DisplayName("RisingEdgeEventEnabledPayload")]
+    [Description("Creates a message payload that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.")]
+    public partial class CreateRisingEdgeEventEnabledPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+        /// </summary>
+        [Description("The value that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.")]
+        public byte RisingEdgeEventEnabled { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the RisingEdgeEventEnabled register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public byte GetPayload()
         {
-            return EnableRisingEdgeEvent;
+            return RisingEdgeEventEnabled;
         }
 
         /// <summary>
-        /// Creates a message that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.
+        /// Creates a message that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the EnableRisingEdgeEvent register.</returns>
+        /// <returns>A new message for the RisingEdgeEventEnabled register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.EnableRisingEdgeEvent.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.RisingEdgeEventEnabled.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.
+    /// that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
     /// </summary>
-    [DisplayName("TimestampedEnableRisingEdgeEventPayload")]
-    [Description("Creates a timestamped message payload that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.")]
-    public partial class CreateTimestampedEnableRisingEdgeEventPayload : CreateEnableRisingEdgeEventPayload
+    [DisplayName("TimestampedRisingEdgeEventEnabledPayload")]
+    [Description("Creates a timestamped message payload that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.")]
+    public partial class CreateTimestampedRisingEdgeEventEnabledPayload : CreateRisingEdgeEventEnabledPayload
     {
         /// <summary>
-        /// Creates a timestamped message that if enabled, an event will be dispatched from register RisingEdgeEvent if any of the specified outputs produces a rising edge.
+        /// Creates a timestamped message that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the EnableRisingEdgeEvent register.</returns>
+        /// <returns>A new timestamped message for the RisingEdgeEventEnabled register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.EnableRisingEdgeEvent.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.RisingEdgeEventEnabled.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.
+    /// that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
     /// </summary>
     [DisplayName("RisingEdgeEventPayload")]
-    [Description("Creates a message payload that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.")]
+    [Description("Creates a message payload that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
     public partial class CreateRisingEdgeEventPayload
     {
         /// <summary>
-        /// Gets or sets the value that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.
+        /// Gets or sets the value that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
         /// </summary>
-        [Description("The value that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.")]
+        [Description("The value that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
         public byte RisingEdgeEvent { get; set; }
 
         /// <summary>
@@ -1793,7 +2973,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Creates a message that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.
+        /// Creates a message that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the RisingEdgeEvent register.</returns>
@@ -1805,14 +2985,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.
+    /// that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
     /// </summary>
     [DisplayName("TimestampedRisingEdgeEventPayload")]
-    [Description("Creates a timestamped message payload that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.")]
+    [Description("Creates a timestamped message payload that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
     public partial class CreateTimestampedRisingEdgeEventPayload : CreateRisingEdgeEventPayload
     {
         /// <summary>
-        /// Creates a timestamped message that an event that is dispatched when any of the enabled outputs produces a rising edge. The event will be dispatched only if EnableRisingEdgeEvent is set.
+        /// Creates a timestamped message that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -1825,433 +3005,865 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that frequency of the pulse train generated on Port0. The value is in Hz.
+    /// that pwm output 0 frequency setting in Hz.
     /// </summary>
-    [DisplayName("Port0FrequencyHzPayload")]
-    [Description("Creates a message payload that frequency of the pulse train generated on Port0. The value is in Hz.")]
-    public partial class CreatePort0FrequencyHzPayload
+    [DisplayName("Pwm0FrequencyHzPayload")]
+    [Description("Creates a message payload that pwm output 0 frequency setting in Hz.")]
+    public partial class CreatePwm0FrequencyHzPayload
     {
         /// <summary>
-        /// Gets or sets the value that frequency of the pulse train generated on Port0. The value is in Hz.
+        /// Gets or sets the value that pwm output 0 frequency setting in Hz.
         /// </summary>
-        [Description("The value that frequency of the pulse train generated on Port0. The value is in Hz.")]
-        public float Port0FrequencyHz { get; set; }
+        [Description("The value that pwm output 0 frequency setting in Hz.")]
+        public float Pwm0FrequencyHz { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Port0FrequencyHz register.
+        /// Creates a message payload for the Pwm0FrequencyHz register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Port0FrequencyHz;
+            return Pwm0FrequencyHz;
         }
 
         /// <summary>
-        /// Creates a message that frequency of the pulse train generated on Port0. The value is in Hz.
+        /// Creates a message that pwm output 0 frequency setting in Hz.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Port0FrequencyHz register.</returns>
+        /// <returns>A new message for the Pwm0FrequencyHz register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port0FrequencyHz.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm0FrequencyHz.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that frequency of the pulse train generated on Port0. The value is in Hz.
+    /// that pwm output 0 frequency setting in Hz.
     /// </summary>
-    [DisplayName("TimestampedPort0FrequencyHzPayload")]
-    [Description("Creates a timestamped message payload that frequency of the pulse train generated on Port0. The value is in Hz.")]
-    public partial class CreateTimestampedPort0FrequencyHzPayload : CreatePort0FrequencyHzPayload
+    [DisplayName("TimestampedPwm0FrequencyHzPayload")]
+    [Description("Creates a timestamped message payload that pwm output 0 frequency setting in Hz.")]
+    public partial class CreateTimestampedPwm0FrequencyHzPayload : CreatePwm0FrequencyHzPayload
     {
         /// <summary>
-        /// Creates a timestamped message that frequency of the pulse train generated on Port0. The value is in Hz.
+        /// Creates a timestamped message that pwm output 0 frequency setting in Hz.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Port0FrequencyHz register.</returns>
+        /// <returns>A new timestamped message for the Pwm0FrequencyHz register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port0FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm0FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that frequency of the pulse train generated on Port1. The value is in Hz.
+    /// that pwm output 0 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [DisplayName("Port1FrequencyHzPayload")]
-    [Description("Creates a message payload that frequency of the pulse train generated on Port1. The value is in Hz.")]
-    public partial class CreatePort1FrequencyHzPayload
+    [DisplayName("Pwm0DutyCyclePayload")]
+    [Description("Creates a message payload that pwm output 0 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreatePwm0DutyCyclePayload
     {
         /// <summary>
-        /// Gets or sets the value that frequency of the pulse train generated on Port1. The value is in Hz.
+        /// Gets or sets the value that pwm output 0 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
-        [Description("The value that frequency of the pulse train generated on Port1. The value is in Hz.")]
-        public float Port1FrequencyHz { get; set; }
+        [Description("The value that pwm output 0 duty cycle setting (range: 0.0 - 1.0).")]
+        public float Pwm0DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Port1FrequencyHz register.
+        /// Creates a message payload for the Pwm0DutyCycle register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Port1FrequencyHz;
+            return Pwm0DutyCycle;
         }
 
         /// <summary>
-        /// Creates a message that frequency of the pulse train generated on Port1. The value is in Hz.
+        /// Creates a message that pwm output 0 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Port1FrequencyHz register.</returns>
+        /// <returns>A new message for the Pwm0DutyCycle register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port1FrequencyHz.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm0DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that frequency of the pulse train generated on Port1. The value is in Hz.
+    /// that pwm output 0 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [DisplayName("TimestampedPort1FrequencyHzPayload")]
-    [Description("Creates a timestamped message payload that frequency of the pulse train generated on Port1. The value is in Hz.")]
-    public partial class CreateTimestampedPort1FrequencyHzPayload : CreatePort1FrequencyHzPayload
+    [DisplayName("TimestampedPwm0DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that pwm output 0 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreateTimestampedPwm0DutyCyclePayload : CreatePwm0DutyCyclePayload
     {
         /// <summary>
-        /// Creates a timestamped message that frequency of the pulse train generated on Port1. The value is in Hz.
+        /// Creates a timestamped message that pwm output 0 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Port1FrequencyHz register.</returns>
+        /// <returns>A new timestamped message for the Pwm0DutyCycle register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port1FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm0DutyCycle.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that frequency of the pulse train generated on Port2. The value is in Hz.
+    /// that pwm output 1 frequency setting in Hz.
     /// </summary>
-    [DisplayName("Port2FrequencyHzPayload")]
-    [Description("Creates a message payload that frequency of the pulse train generated on Port2. The value is in Hz.")]
-    public partial class CreatePort2FrequencyHzPayload
+    [DisplayName("Pwm1FrequencyHzPayload")]
+    [Description("Creates a message payload that pwm output 1 frequency setting in Hz.")]
+    public partial class CreatePwm1FrequencyHzPayload
     {
         /// <summary>
-        /// Gets or sets the value that frequency of the pulse train generated on Port2. The value is in Hz.
+        /// Gets or sets the value that pwm output 1 frequency setting in Hz.
         /// </summary>
-        [Description("The value that frequency of the pulse train generated on Port2. The value is in Hz.")]
-        public float Port2FrequencyHz { get; set; }
+        [Description("The value that pwm output 1 frequency setting in Hz.")]
+        public float Pwm1FrequencyHz { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Port2FrequencyHz register.
+        /// Creates a message payload for the Pwm1FrequencyHz register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Port2FrequencyHz;
+            return Pwm1FrequencyHz;
         }
 
         /// <summary>
-        /// Creates a message that frequency of the pulse train generated on Port2. The value is in Hz.
+        /// Creates a message that pwm output 1 frequency setting in Hz.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Port2FrequencyHz register.</returns>
+        /// <returns>A new message for the Pwm1FrequencyHz register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port2FrequencyHz.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm1FrequencyHz.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that frequency of the pulse train generated on Port2. The value is in Hz.
+    /// that pwm output 1 frequency setting in Hz.
     /// </summary>
-    [DisplayName("TimestampedPort2FrequencyHzPayload")]
-    [Description("Creates a timestamped message payload that frequency of the pulse train generated on Port2. The value is in Hz.")]
-    public partial class CreateTimestampedPort2FrequencyHzPayload : CreatePort2FrequencyHzPayload
+    [DisplayName("TimestampedPwm1FrequencyHzPayload")]
+    [Description("Creates a timestamped message payload that pwm output 1 frequency setting in Hz.")]
+    public partial class CreateTimestampedPwm1FrequencyHzPayload : CreatePwm1FrequencyHzPayload
     {
         /// <summary>
-        /// Creates a timestamped message that frequency of the pulse train generated on Port2. The value is in Hz.
+        /// Creates a timestamped message that pwm output 1 frequency setting in Hz.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Port2FrequencyHz register.</returns>
+        /// <returns>A new timestamped message for the Pwm1FrequencyHz register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port2FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm1FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that frequency of the pulse train generated on Port3. The value is in Hz.
+    /// that pwm output 1 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [DisplayName("Port3FrequencyHzPayload")]
-    [Description("Creates a message payload that frequency of the pulse train generated on Port3. The value is in Hz.")]
-    public partial class CreatePort3FrequencyHzPayload
+    [DisplayName("Pwm1DutyCyclePayload")]
+    [Description("Creates a message payload that pwm output 1 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreatePwm1DutyCyclePayload
     {
         /// <summary>
-        /// Gets or sets the value that frequency of the pulse train generated on Port3. The value is in Hz.
+        /// Gets or sets the value that pwm output 1 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
-        [Description("The value that frequency of the pulse train generated on Port3. The value is in Hz.")]
-        public float Port3FrequencyHz { get; set; }
+        [Description("The value that pwm output 1 duty cycle setting (range: 0.0 - 1.0).")]
+        public float Pwm1DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Port3FrequencyHz register.
+        /// Creates a message payload for the Pwm1DutyCycle register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Port3FrequencyHz;
+            return Pwm1DutyCycle;
         }
 
         /// <summary>
-        /// Creates a message that frequency of the pulse train generated on Port3. The value is in Hz.
+        /// Creates a message that pwm output 1 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Port3FrequencyHz register.</returns>
+        /// <returns>A new message for the Pwm1DutyCycle register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port3FrequencyHz.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm1DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that frequency of the pulse train generated on Port3. The value is in Hz.
+    /// that pwm output 1 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [DisplayName("TimestampedPort3FrequencyHzPayload")]
-    [Description("Creates a timestamped message payload that frequency of the pulse train generated on Port3. The value is in Hz.")]
-    public partial class CreateTimestampedPort3FrequencyHzPayload : CreatePort3FrequencyHzPayload
+    [DisplayName("TimestampedPwm1DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that pwm output 1 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreateTimestampedPwm1DutyCyclePayload : CreatePwm1DutyCyclePayload
     {
         /// <summary>
-        /// Creates a timestamped message that frequency of the pulse train generated on Port3. The value is in Hz.
+        /// Creates a timestamped message that pwm output 1 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Port3FrequencyHz register.</returns>
+        /// <returns>A new timestamped message for the Pwm1DutyCycle register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port3FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm1DutyCycle.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that frequency of the pulse train generated on Port4. The value is in Hz.
+    /// that pwm output 2 frequency setting in Hz.
     /// </summary>
-    [DisplayName("Port4FrequencyHzPayload")]
-    [Description("Creates a message payload that frequency of the pulse train generated on Port4. The value is in Hz.")]
-    public partial class CreatePort4FrequencyHzPayload
+    [DisplayName("Pwm2FrequencyHzPayload")]
+    [Description("Creates a message payload that pwm output 2 frequency setting in Hz.")]
+    public partial class CreatePwm2FrequencyHzPayload
     {
         /// <summary>
-        /// Gets or sets the value that frequency of the pulse train generated on Port4. The value is in Hz.
+        /// Gets or sets the value that pwm output 2 frequency setting in Hz.
         /// </summary>
-        [Description("The value that frequency of the pulse train generated on Port4. The value is in Hz.")]
-        public float Port4FrequencyHz { get; set; }
+        [Description("The value that pwm output 2 frequency setting in Hz.")]
+        public float Pwm2FrequencyHz { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Port4FrequencyHz register.
+        /// Creates a message payload for the Pwm2FrequencyHz register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Port4FrequencyHz;
+            return Pwm2FrequencyHz;
         }
 
         /// <summary>
-        /// Creates a message that frequency of the pulse train generated on Port4. The value is in Hz.
+        /// Creates a message that pwm output 2 frequency setting in Hz.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Port4FrequencyHz register.</returns>
+        /// <returns>A new message for the Pwm2FrequencyHz register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port4FrequencyHz.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm2FrequencyHz.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that frequency of the pulse train generated on Port4. The value is in Hz.
+    /// that pwm output 2 frequency setting in Hz.
     /// </summary>
-    [DisplayName("TimestampedPort4FrequencyHzPayload")]
-    [Description("Creates a timestamped message payload that frequency of the pulse train generated on Port4. The value is in Hz.")]
-    public partial class CreateTimestampedPort4FrequencyHzPayload : CreatePort4FrequencyHzPayload
+    [DisplayName("TimestampedPwm2FrequencyHzPayload")]
+    [Description("Creates a timestamped message payload that pwm output 2 frequency setting in Hz.")]
+    public partial class CreateTimestampedPwm2FrequencyHzPayload : CreatePwm2FrequencyHzPayload
     {
         /// <summary>
-        /// Creates a timestamped message that frequency of the pulse train generated on Port4. The value is in Hz.
+        /// Creates a timestamped message that pwm output 2 frequency setting in Hz.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Port4FrequencyHz register.</returns>
+        /// <returns>A new timestamped message for the Pwm2FrequencyHz register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port4FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm2FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that frequency of the pulse train generated on Port5. The value is in Hz.
+    /// that pwm output 2 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [DisplayName("Port5FrequencyHzPayload")]
-    [Description("Creates a message payload that frequency of the pulse train generated on Port5. The value is in Hz.")]
-    public partial class CreatePort5FrequencyHzPayload
+    [DisplayName("Pwm2DutyCyclePayload")]
+    [Description("Creates a message payload that pwm output 2 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreatePwm2DutyCyclePayload
     {
         /// <summary>
-        /// Gets or sets the value that frequency of the pulse train generated on Port5. The value is in Hz.
+        /// Gets or sets the value that pwm output 2 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
-        [Description("The value that frequency of the pulse train generated on Port5. The value is in Hz.")]
-        public float Port5FrequencyHz { get; set; }
+        [Description("The value that pwm output 2 duty cycle setting (range: 0.0 - 1.0).")]
+        public float Pwm2DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Port5FrequencyHz register.
+        /// Creates a message payload for the Pwm2DutyCycle register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Port5FrequencyHz;
+            return Pwm2DutyCycle;
         }
 
         /// <summary>
-        /// Creates a message that frequency of the pulse train generated on Port5. The value is in Hz.
+        /// Creates a message that pwm output 2 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Port5FrequencyHz register.</returns>
+        /// <returns>A new message for the Pwm2DutyCycle register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port5FrequencyHz.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm2DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that frequency of the pulse train generated on Port5. The value is in Hz.
+    /// that pwm output 2 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [DisplayName("TimestampedPort5FrequencyHzPayload")]
-    [Description("Creates a timestamped message payload that frequency of the pulse train generated on Port5. The value is in Hz.")]
-    public partial class CreateTimestampedPort5FrequencyHzPayload : CreatePort5FrequencyHzPayload
+    [DisplayName("TimestampedPwm2DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that pwm output 2 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreateTimestampedPwm2DutyCyclePayload : CreatePwm2DutyCyclePayload
     {
         /// <summary>
-        /// Creates a timestamped message that frequency of the pulse train generated on Port5. The value is in Hz.
+        /// Creates a timestamped message that pwm output 2 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Port5FrequencyHz register.</returns>
+        /// <returns>A new timestamped message for the Pwm2DutyCycle register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port5FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm2DutyCycle.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that frequency of the pulse train generated on Port6. The value is in Hz.
+    /// that pwm output 3 frequency setting in Hz.
     /// </summary>
-    [DisplayName("Port6FrequencyHzPayload")]
-    [Description("Creates a message payload that frequency of the pulse train generated on Port6. The value is in Hz.")]
-    public partial class CreatePort6FrequencyHzPayload
+    [DisplayName("Pwm3FrequencyHzPayload")]
+    [Description("Creates a message payload that pwm output 3 frequency setting in Hz.")]
+    public partial class CreatePwm3FrequencyHzPayload
     {
         /// <summary>
-        /// Gets or sets the value that frequency of the pulse train generated on Port6. The value is in Hz.
+        /// Gets or sets the value that pwm output 3 frequency setting in Hz.
         /// </summary>
-        [Description("The value that frequency of the pulse train generated on Port6. The value is in Hz.")]
-        public float Port6FrequencyHz { get; set; }
+        [Description("The value that pwm output 3 frequency setting in Hz.")]
+        public float Pwm3FrequencyHz { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Port6FrequencyHz register.
+        /// Creates a message payload for the Pwm3FrequencyHz register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Port6FrequencyHz;
+            return Pwm3FrequencyHz;
         }
 
         /// <summary>
-        /// Creates a message that frequency of the pulse train generated on Port6. The value is in Hz.
+        /// Creates a message that pwm output 3 frequency setting in Hz.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Port6FrequencyHz register.</returns>
+        /// <returns>A new message for the Pwm3FrequencyHz register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port6FrequencyHz.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm3FrequencyHz.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that frequency of the pulse train generated on Port6. The value is in Hz.
+    /// that pwm output 3 frequency setting in Hz.
     /// </summary>
-    [DisplayName("TimestampedPort6FrequencyHzPayload")]
-    [Description("Creates a timestamped message payload that frequency of the pulse train generated on Port6. The value is in Hz.")]
-    public partial class CreateTimestampedPort6FrequencyHzPayload : CreatePort6FrequencyHzPayload
+    [DisplayName("TimestampedPwm3FrequencyHzPayload")]
+    [Description("Creates a timestamped message payload that pwm output 3 frequency setting in Hz.")]
+    public partial class CreateTimestampedPwm3FrequencyHzPayload : CreatePwm3FrequencyHzPayload
     {
         /// <summary>
-        /// Creates a timestamped message that frequency of the pulse train generated on Port6. The value is in Hz.
+        /// Creates a timestamped message that pwm output 3 frequency setting in Hz.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Port6FrequencyHz register.</returns>
+        /// <returns>A new timestamped message for the Pwm3FrequencyHz register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port6FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm3FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that frequency of the pulse train generated on Port7. The value is in Hz.
+    /// that pwm output 3 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [DisplayName("Port7FrequencyHzPayload")]
-    [Description("Creates a message payload that frequency of the pulse train generated on Port7. The value is in Hz.")]
-    public partial class CreatePort7FrequencyHzPayload
+    [DisplayName("Pwm3DutyCyclePayload")]
+    [Description("Creates a message payload that pwm output 3 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreatePwm3DutyCyclePayload
     {
         /// <summary>
-        /// Gets or sets the value that frequency of the pulse train generated on Port7. The value is in Hz.
+        /// Gets or sets the value that pwm output 3 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
-        [Description("The value that frequency of the pulse train generated on Port7. The value is in Hz.")]
-        public float Port7FrequencyHz { get; set; }
+        [Description("The value that pwm output 3 duty cycle setting (range: 0.0 - 1.0).")]
+        public float Pwm3DutyCycle { get; set; }
 
         /// <summary>
-        /// Creates a message payload for the Port7FrequencyHz register.
+        /// Creates a message payload for the Pwm3DutyCycle register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
         public float GetPayload()
         {
-            return Port7FrequencyHz;
+            return Pwm3DutyCycle;
         }
 
         /// <summary>
-        /// Creates a message that frequency of the pulse train generated on Port7. The value is in Hz.
+        /// Creates a message that pwm output 3 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new message for the Port7FrequencyHz register.</returns>
+        /// <returns>A new message for the Pwm3DutyCycle register.</returns>
         public HarpMessage GetMessage(MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port7FrequencyHz.FromPayload(messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm3DutyCycle.FromPayload(messageType, GetPayload());
         }
     }
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that frequency of the pulse train generated on Port7. The value is in Hz.
+    /// that pwm output 3 duty cycle setting (range: 0.0 - 1.0).
     /// </summary>
-    [DisplayName("TimestampedPort7FrequencyHzPayload")]
-    [Description("Creates a timestamped message payload that frequency of the pulse train generated on Port7. The value is in Hz.")]
-    public partial class CreateTimestampedPort7FrequencyHzPayload : CreatePort7FrequencyHzPayload
+    [DisplayName("TimestampedPwm3DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that pwm output 3 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreateTimestampedPwm3DutyCyclePayload : CreatePwm3DutyCyclePayload
     {
         /// <summary>
-        /// Creates a timestamped message that frequency of the pulse train generated on Port7. The value is in Hz.
+        /// Creates a timestamped message that pwm output 3 duty cycle setting (range: 0.0 - 1.0).
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
-        /// <returns>A new timestamped message for the Port7FrequencyHz register.</returns>
+        /// <returns>A new timestamped message for the Pwm3DutyCycle register.</returns>
         public HarpMessage GetMessage(double timestamp, MessageType messageType)
         {
-            return AllenNeuralDynamics.CuttlefishCamTrigger.Port7FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm3DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that pwm output 4 frequency setting in Hz.
+    /// </summary>
+    [DisplayName("Pwm4FrequencyHzPayload")]
+    [Description("Creates a message payload that pwm output 4 frequency setting in Hz.")]
+    public partial class CreatePwm4FrequencyHzPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that pwm output 4 frequency setting in Hz.
+        /// </summary>
+        [Description("The value that pwm output 4 frequency setting in Hz.")]
+        public float Pwm4FrequencyHz { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Pwm4FrequencyHz register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Pwm4FrequencyHz;
+        }
+
+        /// <summary>
+        /// Creates a message that pwm output 4 frequency setting in Hz.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Pwm4FrequencyHz register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm4FrequencyHz.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that pwm output 4 frequency setting in Hz.
+    /// </summary>
+    [DisplayName("TimestampedPwm4FrequencyHzPayload")]
+    [Description("Creates a timestamped message payload that pwm output 4 frequency setting in Hz.")]
+    public partial class CreateTimestampedPwm4FrequencyHzPayload : CreatePwm4FrequencyHzPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that pwm output 4 frequency setting in Hz.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Pwm4FrequencyHz register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm4FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that pwm output 4 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [DisplayName("Pwm4DutyCyclePayload")]
+    [Description("Creates a message payload that pwm output 4 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreatePwm4DutyCyclePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that pwm output 4 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        [Description("The value that pwm output 4 duty cycle setting (range: 0.0 - 1.0).")]
+        public float Pwm4DutyCycle { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Pwm4DutyCycle register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Pwm4DutyCycle;
+        }
+
+        /// <summary>
+        /// Creates a message that pwm output 4 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Pwm4DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm4DutyCycle.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that pwm output 4 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [DisplayName("TimestampedPwm4DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that pwm output 4 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreateTimestampedPwm4DutyCyclePayload : CreatePwm4DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that pwm output 4 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Pwm4DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm4DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that pwm output 5 frequency setting in Hz.
+    /// </summary>
+    [DisplayName("Pwm5FrequencyHzPayload")]
+    [Description("Creates a message payload that pwm output 5 frequency setting in Hz.")]
+    public partial class CreatePwm5FrequencyHzPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that pwm output 5 frequency setting in Hz.
+        /// </summary>
+        [Description("The value that pwm output 5 frequency setting in Hz.")]
+        public float Pwm5FrequencyHz { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Pwm5FrequencyHz register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Pwm5FrequencyHz;
+        }
+
+        /// <summary>
+        /// Creates a message that pwm output 5 frequency setting in Hz.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Pwm5FrequencyHz register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm5FrequencyHz.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that pwm output 5 frequency setting in Hz.
+    /// </summary>
+    [DisplayName("TimestampedPwm5FrequencyHzPayload")]
+    [Description("Creates a timestamped message payload that pwm output 5 frequency setting in Hz.")]
+    public partial class CreateTimestampedPwm5FrequencyHzPayload : CreatePwm5FrequencyHzPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that pwm output 5 frequency setting in Hz.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Pwm5FrequencyHz register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm5FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that pwm output 5 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [DisplayName("Pwm5DutyCyclePayload")]
+    [Description("Creates a message payload that pwm output 5 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreatePwm5DutyCyclePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that pwm output 5 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        [Description("The value that pwm output 5 duty cycle setting (range: 0.0 - 1.0).")]
+        public float Pwm5DutyCycle { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Pwm5DutyCycle register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Pwm5DutyCycle;
+        }
+
+        /// <summary>
+        /// Creates a message that pwm output 5 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Pwm5DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm5DutyCycle.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that pwm output 5 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [DisplayName("TimestampedPwm5DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that pwm output 5 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreateTimestampedPwm5DutyCyclePayload : CreatePwm5DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that pwm output 5 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Pwm5DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm5DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that pwm output 6 frequency setting in Hz.
+    /// </summary>
+    [DisplayName("Pwm6FrequencyHzPayload")]
+    [Description("Creates a message payload that pwm output 6 frequency setting in Hz.")]
+    public partial class CreatePwm6FrequencyHzPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that pwm output 6 frequency setting in Hz.
+        /// </summary>
+        [Description("The value that pwm output 6 frequency setting in Hz.")]
+        public float Pwm6FrequencyHz { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Pwm6FrequencyHz register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Pwm6FrequencyHz;
+        }
+
+        /// <summary>
+        /// Creates a message that pwm output 6 frequency setting in Hz.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Pwm6FrequencyHz register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm6FrequencyHz.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that pwm output 6 frequency setting in Hz.
+    /// </summary>
+    [DisplayName("TimestampedPwm6FrequencyHzPayload")]
+    [Description("Creates a timestamped message payload that pwm output 6 frequency setting in Hz.")]
+    public partial class CreateTimestampedPwm6FrequencyHzPayload : CreatePwm6FrequencyHzPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that pwm output 6 frequency setting in Hz.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Pwm6FrequencyHz register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm6FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that pwm output 6 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [DisplayName("Pwm6DutyCyclePayload")]
+    [Description("Creates a message payload that pwm output 6 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreatePwm6DutyCyclePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that pwm output 6 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        [Description("The value that pwm output 6 duty cycle setting (range: 0.0 - 1.0).")]
+        public float Pwm6DutyCycle { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Pwm6DutyCycle register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Pwm6DutyCycle;
+        }
+
+        /// <summary>
+        /// Creates a message that pwm output 6 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Pwm6DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm6DutyCycle.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that pwm output 6 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [DisplayName("TimestampedPwm6DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that pwm output 6 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreateTimestampedPwm6DutyCyclePayload : CreatePwm6DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that pwm output 6 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Pwm6DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm6DutyCycle.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that pwm output 7 frequency setting in Hz.
+    /// </summary>
+    [DisplayName("Pwm7FrequencyHzPayload")]
+    [Description("Creates a message payload that pwm output 7 frequency setting in Hz.")]
+    public partial class CreatePwm7FrequencyHzPayload
+    {
+        /// <summary>
+        /// Gets or sets the value that pwm output 7 frequency setting in Hz.
+        /// </summary>
+        [Description("The value that pwm output 7 frequency setting in Hz.")]
+        public float Pwm7FrequencyHz { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Pwm7FrequencyHz register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Pwm7FrequencyHz;
+        }
+
+        /// <summary>
+        /// Creates a message that pwm output 7 frequency setting in Hz.
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Pwm7FrequencyHz register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm7FrequencyHz.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that pwm output 7 frequency setting in Hz.
+    /// </summary>
+    [DisplayName("TimestampedPwm7FrequencyHzPayload")]
+    [Description("Creates a timestamped message payload that pwm output 7 frequency setting in Hz.")]
+    public partial class CreateTimestampedPwm7FrequencyHzPayload : CreatePwm7FrequencyHzPayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that pwm output 7 frequency setting in Hz.
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Pwm7FrequencyHz register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm7FrequencyHz.FromPayload(timestamp, messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a message payload
+    /// that pwm output 7 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [DisplayName("Pwm7DutyCyclePayload")]
+    [Description("Creates a message payload that pwm output 7 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreatePwm7DutyCyclePayload
+    {
+        /// <summary>
+        /// Gets or sets the value that pwm output 7 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        [Description("The value that pwm output 7 duty cycle setting (range: 0.0 - 1.0).")]
+        public float Pwm7DutyCycle { get; set; }
+
+        /// <summary>
+        /// Creates a message payload for the Pwm7DutyCycle register.
+        /// </summary>
+        /// <returns>The created message payload value.</returns>
+        public float GetPayload()
+        {
+            return Pwm7DutyCycle;
+        }
+
+        /// <summary>
+        /// Creates a message that pwm output 7 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new message for the Pwm7DutyCycle register.</returns>
+        public HarpMessage GetMessage(MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm7DutyCycle.FromPayload(messageType, GetPayload());
+        }
+    }
+
+    /// <summary>
+    /// Represents an operator that creates a timestamped message payload
+    /// that pwm output 7 duty cycle setting (range: 0.0 - 1.0).
+    /// </summary>
+    [DisplayName("TimestampedPwm7DutyCyclePayload")]
+    [Description("Creates a timestamped message payload that pwm output 7 duty cycle setting (range: 0.0 - 1.0).")]
+    public partial class CreateTimestampedPwm7DutyCyclePayload : CreatePwm7DutyCyclePayload
+    {
+        /// <summary>
+        /// Creates a timestamped message that pwm output 7 duty cycle setting (range: 0.0 - 1.0).
+        /// </summary>
+        /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
+        /// <param name="messageType">Specifies the type of the created message.</param>
+        /// <returns>A new timestamped message for the Pwm7DutyCycle register.</returns>
+        public HarpMessage GetMessage(double timestamp, MessageType messageType)
+        {
+            return AllenNeuralDynamics.CuttlefishCamTrigger.Pwm7DutyCycle.FromPayload(timestamp, messageType, GetPayload());
         }
     }
 

@@ -49,7 +49,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the EnableOutput register.
+        /// Asynchronously reads the contents of the PwmEnabled register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -58,14 +58,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<Ports> ReadEnableOutputAsync(CancellationToken cancellationToken = default)
+        public async Task<Ports> ReadPwmEnabledAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(EnableOutput.Address), cancellationToken);
-            return EnableOutput.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(PwmEnabled.Address), cancellationToken);
+            return PwmEnabled.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the EnableOutput register.
+        /// Asynchronously reads the timestamped contents of the PwmEnabled register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -74,28 +74,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<Ports>> ReadTimestampedEnableOutputAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<Ports>> ReadTimestampedPwmEnabledAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(EnableOutput.Address), cancellationToken);
-            return EnableOutput.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(PwmEnabled.Address), cancellationToken);
+            return PwmEnabled.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the EnableOutput register.
+        /// Asynchronously writes a value to the PwmEnabled register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteEnableOutputAsync(Ports value, CancellationToken cancellationToken = default)
+        public async Task WritePwmEnabledAsync(Ports value, CancellationToken cancellationToken = default)
         {
-            var request = EnableOutput.FromPayload(MessageType.Write, value);
+            var request = PwmEnabled.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the InvertOutputMask register.
+        /// Asynchronously reads the contents of the PwmSet register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -104,14 +104,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<Ports> ReadInvertOutputMaskAsync(CancellationToken cancellationToken = default)
+        public async Task<Ports> ReadPwmSetAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(InvertOutputMask.Address), cancellationToken);
-            return InvertOutputMask.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(PwmSet.Address), cancellationToken);
+            return PwmSet.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the InvertOutputMask register.
+        /// Asynchronously reads the timestamped contents of the PwmSet register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -120,28 +120,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<Ports>> ReadTimestampedInvertOutputMaskAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<Ports>> ReadTimestampedPwmSetAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(InvertOutputMask.Address), cancellationToken);
-            return InvertOutputMask.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(PwmSet.Address), cancellationToken);
+            return PwmSet.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the InvertOutputMask register.
+        /// Asynchronously writes a value to the PwmSet register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteInvertOutputMaskAsync(Ports value, CancellationToken cancellationToken = default)
+        public async Task WritePwmSetAsync(Ports value, CancellationToken cancellationToken = default)
         {
-            var request = InvertOutputMask.FromPayload(MessageType.Write, value);
+            var request = PwmSet.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the EnableRisingEdgeEvent register.
+        /// Asynchronously reads the contents of the PwmClear register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -150,14 +150,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<byte> ReadEnableRisingEdgeEventAsync(CancellationToken cancellationToken = default)
+        public async Task<Ports> ReadPwmClearAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(EnableRisingEdgeEvent.Address), cancellationToken);
-            return EnableRisingEdgeEvent.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(PwmClear.Address), cancellationToken);
+            return PwmClear.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the EnableRisingEdgeEvent register.
+        /// Asynchronously reads the timestamped contents of the PwmClear register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -166,23 +166,115 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<byte>> ReadTimestampedEnableRisingEdgeEventAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<Ports>> ReadTimestampedPwmClearAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadByte(EnableRisingEdgeEvent.Address), cancellationToken);
-            return EnableRisingEdgeEvent.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadByte(PwmClear.Address), cancellationToken);
+            return PwmClear.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the EnableRisingEdgeEvent register.
+        /// Asynchronously writes a value to the PwmClear register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteEnableRisingEdgeEventAsync(byte value, CancellationToken cancellationToken = default)
+        public async Task WritePwmClearAsync(Ports value, CancellationToken cancellationToken = default)
         {
-            var request = EnableRisingEdgeEvent.FromPayload(MessageType.Write, value);
+            var request = PwmClear.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the PwmInvert register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<Ports> ReadPwmInvertAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(PwmInvert.Address), cancellationToken);
+            return PwmInvert.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the PwmInvert register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<Ports>> ReadTimestampedPwmInvertAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(PwmInvert.Address), cancellationToken);
+            return PwmInvert.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the PwmInvert register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwmInvertAsync(Ports value, CancellationToken cancellationToken = default)
+        {
+            var request = PwmInvert.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the RisingEdgeEventEnabled register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<byte> ReadRisingEdgeEventEnabledAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(RisingEdgeEventEnabled.Address), cancellationToken);
+            return RisingEdgeEventEnabled.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the RisingEdgeEventEnabled register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<byte>> ReadTimestampedRisingEdgeEventEnabledAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadByte(RisingEdgeEventEnabled.Address), cancellationToken);
+            return RisingEdgeEventEnabled.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the RisingEdgeEventEnabled register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WriteRisingEdgeEventEnabledAsync(byte value, CancellationToken cancellationToken = default)
+        {
+            var request = RisingEdgeEventEnabled.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
@@ -219,7 +311,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the Port0FrequencyHz register.
+        /// Asynchronously reads the contents of the Pwm0FrequencyHz register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -228,14 +320,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<float> ReadPort0FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<float> ReadPwm0FrequencyHzAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port0FrequencyHz.Address), cancellationToken);
-            return Port0FrequencyHz.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm0FrequencyHz.Address), cancellationToken);
+            return Pwm0FrequencyHz.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the Port0FrequencyHz register.
+        /// Asynchronously reads the timestamped contents of the Pwm0FrequencyHz register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -244,28 +336,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<float>> ReadTimestampedPort0FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<float>> ReadTimestampedPwm0FrequencyHzAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port0FrequencyHz.Address), cancellationToken);
-            return Port0FrequencyHz.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm0FrequencyHz.Address), cancellationToken);
+            return Pwm0FrequencyHz.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the Port0FrequencyHz register.
+        /// Asynchronously writes a value to the Pwm0FrequencyHz register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WritePort0FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        public async Task WritePwm0FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
         {
-            var request = Port0FrequencyHz.FromPayload(MessageType.Write, value);
+            var request = Pwm0FrequencyHz.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the Port1FrequencyHz register.
+        /// Asynchronously reads the contents of the Pwm0DutyCycle register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -274,14 +366,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<float> ReadPort1FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<float> ReadPwm0DutyCycleAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port1FrequencyHz.Address), cancellationToken);
-            return Port1FrequencyHz.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm0DutyCycle.Address), cancellationToken);
+            return Pwm0DutyCycle.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the Port1FrequencyHz register.
+        /// Asynchronously reads the timestamped contents of the Pwm0DutyCycle register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -290,28 +382,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<float>> ReadTimestampedPort1FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<float>> ReadTimestampedPwm0DutyCycleAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port1FrequencyHz.Address), cancellationToken);
-            return Port1FrequencyHz.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm0DutyCycle.Address), cancellationToken);
+            return Pwm0DutyCycle.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the Port1FrequencyHz register.
+        /// Asynchronously writes a value to the Pwm0DutyCycle register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WritePort1FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        public async Task WritePwm0DutyCycleAsync(float value, CancellationToken cancellationToken = default)
         {
-            var request = Port1FrequencyHz.FromPayload(MessageType.Write, value);
+            var request = Pwm0DutyCycle.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the Port2FrequencyHz register.
+        /// Asynchronously reads the contents of the Pwm1FrequencyHz register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -320,14 +412,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<float> ReadPort2FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<float> ReadPwm1FrequencyHzAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port2FrequencyHz.Address), cancellationToken);
-            return Port2FrequencyHz.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm1FrequencyHz.Address), cancellationToken);
+            return Pwm1FrequencyHz.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the Port2FrequencyHz register.
+        /// Asynchronously reads the timestamped contents of the Pwm1FrequencyHz register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -336,28 +428,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<float>> ReadTimestampedPort2FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<float>> ReadTimestampedPwm1FrequencyHzAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port2FrequencyHz.Address), cancellationToken);
-            return Port2FrequencyHz.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm1FrequencyHz.Address), cancellationToken);
+            return Pwm1FrequencyHz.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the Port2FrequencyHz register.
+        /// Asynchronously writes a value to the Pwm1FrequencyHz register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WritePort2FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        public async Task WritePwm1FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
         {
-            var request = Port2FrequencyHz.FromPayload(MessageType.Write, value);
+            var request = Pwm1FrequencyHz.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the Port3FrequencyHz register.
+        /// Asynchronously reads the contents of the Pwm1DutyCycle register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -366,14 +458,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<float> ReadPort3FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<float> ReadPwm1DutyCycleAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port3FrequencyHz.Address), cancellationToken);
-            return Port3FrequencyHz.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm1DutyCycle.Address), cancellationToken);
+            return Pwm1DutyCycle.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the Port3FrequencyHz register.
+        /// Asynchronously reads the timestamped contents of the Pwm1DutyCycle register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -382,28 +474,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<float>> ReadTimestampedPort3FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<float>> ReadTimestampedPwm1DutyCycleAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port3FrequencyHz.Address), cancellationToken);
-            return Port3FrequencyHz.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm1DutyCycle.Address), cancellationToken);
+            return Pwm1DutyCycle.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the Port3FrequencyHz register.
+        /// Asynchronously writes a value to the Pwm1DutyCycle register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WritePort3FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        public async Task WritePwm1DutyCycleAsync(float value, CancellationToken cancellationToken = default)
         {
-            var request = Port3FrequencyHz.FromPayload(MessageType.Write, value);
+            var request = Pwm1DutyCycle.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the Port4FrequencyHz register.
+        /// Asynchronously reads the contents of the Pwm2FrequencyHz register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -412,14 +504,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<float> ReadPort4FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<float> ReadPwm2FrequencyHzAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port4FrequencyHz.Address), cancellationToken);
-            return Port4FrequencyHz.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm2FrequencyHz.Address), cancellationToken);
+            return Pwm2FrequencyHz.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the Port4FrequencyHz register.
+        /// Asynchronously reads the timestamped contents of the Pwm2FrequencyHz register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -428,28 +520,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<float>> ReadTimestampedPort4FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<float>> ReadTimestampedPwm2FrequencyHzAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port4FrequencyHz.Address), cancellationToken);
-            return Port4FrequencyHz.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm2FrequencyHz.Address), cancellationToken);
+            return Pwm2FrequencyHz.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the Port4FrequencyHz register.
+        /// Asynchronously writes a value to the Pwm2FrequencyHz register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WritePort4FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        public async Task WritePwm2FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
         {
-            var request = Port4FrequencyHz.FromPayload(MessageType.Write, value);
+            var request = Pwm2FrequencyHz.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the Port5FrequencyHz register.
+        /// Asynchronously reads the contents of the Pwm2DutyCycle register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -458,14 +550,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<float> ReadPort5FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<float> ReadPwm2DutyCycleAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port5FrequencyHz.Address), cancellationToken);
-            return Port5FrequencyHz.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm2DutyCycle.Address), cancellationToken);
+            return Pwm2DutyCycle.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the Port5FrequencyHz register.
+        /// Asynchronously reads the timestamped contents of the Pwm2DutyCycle register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -474,28 +566,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<float>> ReadTimestampedPort5FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<float>> ReadTimestampedPwm2DutyCycleAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port5FrequencyHz.Address), cancellationToken);
-            return Port5FrequencyHz.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm2DutyCycle.Address), cancellationToken);
+            return Pwm2DutyCycle.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the Port5FrequencyHz register.
+        /// Asynchronously writes a value to the Pwm2DutyCycle register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WritePort5FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        public async Task WritePwm2DutyCycleAsync(float value, CancellationToken cancellationToken = default)
         {
-            var request = Port5FrequencyHz.FromPayload(MessageType.Write, value);
+            var request = Pwm2DutyCycle.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the Port6FrequencyHz register.
+        /// Asynchronously reads the contents of the Pwm3FrequencyHz register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -504,14 +596,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<float> ReadPort6FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<float> ReadPwm3FrequencyHzAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port6FrequencyHz.Address), cancellationToken);
-            return Port6FrequencyHz.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm3FrequencyHz.Address), cancellationToken);
+            return Pwm3FrequencyHz.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the Port6FrequencyHz register.
+        /// Asynchronously reads the timestamped contents of the Pwm3FrequencyHz register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -520,28 +612,28 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<float>> ReadTimestampedPort6FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<float>> ReadTimestampedPwm3FrequencyHzAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port6FrequencyHz.Address), cancellationToken);
-            return Port6FrequencyHz.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm3FrequencyHz.Address), cancellationToken);
+            return Pwm3FrequencyHz.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the Port6FrequencyHz register.
+        /// Asynchronously writes a value to the Pwm3FrequencyHz register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WritePort6FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        public async Task WritePwm3FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
         {
-            var request = Port6FrequencyHz.FromPayload(MessageType.Write, value);
+            var request = Pwm3FrequencyHz.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
 
         /// <summary>
-        /// Asynchronously reads the contents of the Port7FrequencyHz register.
+        /// Asynchronously reads the contents of the Pwm3DutyCycle register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -550,14 +642,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<float> ReadPort7FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<float> ReadPwm3DutyCycleAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port7FrequencyHz.Address), cancellationToken);
-            return Port7FrequencyHz.GetPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm3DutyCycle.Address), cancellationToken);
+            return Pwm3DutyCycle.GetPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously reads the timestamped contents of the Port7FrequencyHz register.
+        /// Asynchronously reads the timestamped contents of the Pwm3DutyCycle register.
         /// </summary>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
@@ -566,23 +658,391 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<float>> ReadTimestampedPort7FrequencyHzAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<float>> ReadTimestampedPwm3DutyCycleAsync(CancellationToken cancellationToken = default)
         {
-            var reply = await CommandAsync(HarpCommand.ReadSingle(Port7FrequencyHz.Address), cancellationToken);
-            return Port7FrequencyHz.GetTimestampedPayload(reply);
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm3DutyCycle.Address), cancellationToken);
+            return Pwm3DutyCycle.GetTimestampedPayload(reply);
         }
 
         /// <summary>
-        /// Asynchronously writes a value to the Port7FrequencyHz register.
+        /// Asynchronously writes a value to the Pwm3DutyCycle register.
         /// </summary>
         /// <param name="value">The value to be stored in the register.</param>
         /// <param name="cancellationToken">
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WritePort7FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        public async Task WritePwm3DutyCycleAsync(float value, CancellationToken cancellationToken = default)
         {
-            var request = Port7FrequencyHz.FromPayload(MessageType.Write, value);
+            var request = Pwm3DutyCycle.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the Pwm4FrequencyHz register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<float> ReadPwm4FrequencyHzAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm4FrequencyHz.Address), cancellationToken);
+            return Pwm4FrequencyHz.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the Pwm4FrequencyHz register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<float>> ReadTimestampedPwm4FrequencyHzAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm4FrequencyHz.Address), cancellationToken);
+            return Pwm4FrequencyHz.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the Pwm4FrequencyHz register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwm4FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        {
+            var request = Pwm4FrequencyHz.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the Pwm4DutyCycle register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<float> ReadPwm4DutyCycleAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm4DutyCycle.Address), cancellationToken);
+            return Pwm4DutyCycle.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the Pwm4DutyCycle register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<float>> ReadTimestampedPwm4DutyCycleAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm4DutyCycle.Address), cancellationToken);
+            return Pwm4DutyCycle.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the Pwm4DutyCycle register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwm4DutyCycleAsync(float value, CancellationToken cancellationToken = default)
+        {
+            var request = Pwm4DutyCycle.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the Pwm5FrequencyHz register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<float> ReadPwm5FrequencyHzAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm5FrequencyHz.Address), cancellationToken);
+            return Pwm5FrequencyHz.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the Pwm5FrequencyHz register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<float>> ReadTimestampedPwm5FrequencyHzAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm5FrequencyHz.Address), cancellationToken);
+            return Pwm5FrequencyHz.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the Pwm5FrequencyHz register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwm5FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        {
+            var request = Pwm5FrequencyHz.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the Pwm5DutyCycle register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<float> ReadPwm5DutyCycleAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm5DutyCycle.Address), cancellationToken);
+            return Pwm5DutyCycle.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the Pwm5DutyCycle register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<float>> ReadTimestampedPwm5DutyCycleAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm5DutyCycle.Address), cancellationToken);
+            return Pwm5DutyCycle.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the Pwm5DutyCycle register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwm5DutyCycleAsync(float value, CancellationToken cancellationToken = default)
+        {
+            var request = Pwm5DutyCycle.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the Pwm6FrequencyHz register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<float> ReadPwm6FrequencyHzAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm6FrequencyHz.Address), cancellationToken);
+            return Pwm6FrequencyHz.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the Pwm6FrequencyHz register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<float>> ReadTimestampedPwm6FrequencyHzAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm6FrequencyHz.Address), cancellationToken);
+            return Pwm6FrequencyHz.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the Pwm6FrequencyHz register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwm6FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        {
+            var request = Pwm6FrequencyHz.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the Pwm6DutyCycle register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<float> ReadPwm6DutyCycleAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm6DutyCycle.Address), cancellationToken);
+            return Pwm6DutyCycle.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the Pwm6DutyCycle register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<float>> ReadTimestampedPwm6DutyCycleAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm6DutyCycle.Address), cancellationToken);
+            return Pwm6DutyCycle.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the Pwm6DutyCycle register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwm6DutyCycleAsync(float value, CancellationToken cancellationToken = default)
+        {
+            var request = Pwm6DutyCycle.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the Pwm7FrequencyHz register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<float> ReadPwm7FrequencyHzAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm7FrequencyHz.Address), cancellationToken);
+            return Pwm7FrequencyHz.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the Pwm7FrequencyHz register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<float>> ReadTimestampedPwm7FrequencyHzAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm7FrequencyHz.Address), cancellationToken);
+            return Pwm7FrequencyHz.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the Pwm7FrequencyHz register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwm7FrequencyHzAsync(float value, CancellationToken cancellationToken = default)
+        {
+            var request = Pwm7FrequencyHz.FromPayload(MessageType.Write, value);
+            await CommandAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the contents of the Pwm7DutyCycle register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the register payload.
+        /// </returns>
+        public async Task<float> ReadPwm7DutyCycleAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm7DutyCycle.Address), cancellationToken);
+            return Pwm7DutyCycle.GetPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously reads the timestamped contents of the Pwm7DutyCycle register.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
+        /// property contains the timestamped register payload.
+        /// </returns>
+        public async Task<Timestamped<float>> ReadTimestampedPwm7DutyCycleAsync(CancellationToken cancellationToken = default)
+        {
+            var reply = await CommandAsync(HarpCommand.ReadSingle(Pwm7DutyCycle.Address), cancellationToken);
+            return Pwm7DutyCycle.GetTimestampedPayload(reply);
+        }
+
+        /// <summary>
+        /// Asynchronously writes a value to the Pwm7DutyCycle register.
+        /// </summary>
+        /// <param name="value">The value to be stored in the register.</param>
+        /// <param name="cancellationToken">
+        /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
+        /// </param>
+        /// <returns>The task object representing the asynchronous write operation.</returns>
+        public async Task WritePwm7DutyCycleAsync(float value, CancellationToken cancellationToken = default)
+        {
+            var request = Pwm7DutyCycle.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);
         }
     }
