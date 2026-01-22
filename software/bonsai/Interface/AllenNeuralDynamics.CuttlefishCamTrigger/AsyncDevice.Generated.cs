@@ -242,7 +242,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the register payload.
         /// </returns>
-        public async Task<byte> ReadRisingEdgeEventEnabledAsync(CancellationToken cancellationToken = default)
+        public async Task<Ports> ReadRisingEdgeEventEnabledAsync(CancellationToken cancellationToken = default)
         {
             var reply = await CommandAsync(HarpCommand.ReadByte(RisingEdgeEventEnabled.Address), cancellationToken);
             return RisingEdgeEventEnabled.GetPayload(reply);
@@ -258,7 +258,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A task that represents the asynchronous read operation. The <see cref="Task{TResult}.Result"/>
         /// property contains the timestamped register payload.
         /// </returns>
-        public async Task<Timestamped<byte>> ReadTimestampedRisingEdgeEventEnabledAsync(CancellationToken cancellationToken = default)
+        public async Task<Timestamped<Ports>> ReadTimestampedRisingEdgeEventEnabledAsync(CancellationToken cancellationToken = default)
         {
             var reply = await CommandAsync(HarpCommand.ReadByte(RisingEdgeEventEnabled.Address), cancellationToken);
             return RisingEdgeEventEnabled.GetTimestampedPayload(reply);
@@ -272,7 +272,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A <see cref="CancellationToken"/> which can be used to cancel the operation.
         /// </param>
         /// <returns>The task object representing the asynchronous write operation.</returns>
-        public async Task WriteRisingEdgeEventEnabledAsync(byte value, CancellationToken cancellationToken = default)
+        public async Task WriteRisingEdgeEventEnabledAsync(Ports value, CancellationToken cancellationToken = default)
         {
             var request = RisingEdgeEventEnabled.FromPayload(MessageType.Write, value);
             await CommandAsync(request, cancellationToken);

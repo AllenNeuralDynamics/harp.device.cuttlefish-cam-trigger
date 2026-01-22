@@ -11,36 +11,37 @@ registers:
     type: U8
     access: Write
     maskType: Ports
-    description: "Bitmask to enable/disable each of the 8 Pwm outputs"
+    description: "Bitmask to enable/disable each of the 8 PWM outputs"
   PwmSet:
     address: 33
     type: U8
     access: Write
     maskType: Ports
-    description: "Bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1."
+    description: "Bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1."
   PwmClear:
     address: 34
     type: U8
     access: Write
     maskType: Ports
-    description: "Bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1."
+    description: "Bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1."
   PwmInvert:
     address: 35
     type: U8
     access: Write
     maskType: Ports
-    description: "Bitmask to invert each of the 8 Pwm outputs if set to 1"
+    description: "Bitmask to invert each of the 8 PWM outputs if set to 1"
   RisingEdgeEventEnabled:
     address: 36
     type: U8
     access: Write
-    description: "Bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs"
+    maskType: Ports
+    description: "Bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs"
   RisingEdgeEvent:
     address: 37
     type: U8
     access: Event
     maskType: Ports
-    description: "Bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge."
+    description: "Bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge."
   Pwm0FrequencyHz: &PwmFrequencyHz
     address: 38
     type: Float

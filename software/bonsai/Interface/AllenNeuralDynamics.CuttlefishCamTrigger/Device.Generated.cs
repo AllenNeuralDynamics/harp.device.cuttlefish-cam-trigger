@@ -480,9 +480,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents a register that bitmask to enable/disable each of the 8 Pwm outputs.
+    /// Represents a register that bitmask to enable/disable each of the 8 PWM outputs.
     /// </summary>
-    [Description("Bitmask to enable/disable each of the 8 Pwm outputs")]
+    [Description("Bitmask to enable/disable each of the 8 PWM outputs")]
     public partial class PwmEnabled
     {
         /// <summary>
@@ -577,9 +577,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents a register that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
+    /// Represents a register that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.
     /// </summary>
-    [Description("Bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    [Description("Bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.")]
     public partial class PwmSet
     {
         /// <summary>
@@ -674,9 +674,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents a register that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+    /// Represents a register that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.
     /// </summary>
-    [Description("Bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    [Description("Bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.")]
     public partial class PwmClear
     {
         /// <summary>
@@ -771,9 +771,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents a register that bitmask to invert each of the 8 Pwm outputs if set to 1.
+    /// Represents a register that bitmask to invert each of the 8 PWM outputs if set to 1.
     /// </summary>
-    [Description("Bitmask to invert each of the 8 Pwm outputs if set to 1")]
+    [Description("Bitmask to invert each of the 8 PWM outputs if set to 1")]
     public partial class PwmInvert
     {
         /// <summary>
@@ -868,9 +868,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
     }
 
     /// <summary>
-    /// Represents a register that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+    /// Represents a register that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.
     /// </summary>
-    [Description("Bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs")]
+    [Description("Bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs")]
     public partial class RisingEdgeEventEnabled
     {
         /// <summary>
@@ -893,9 +893,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the message payload.</returns>
-        public static byte GetPayload(HarpMessage message)
+        public static Ports GetPayload(HarpMessage message)
         {
-            return message.GetPayloadByte();
+            return (Ports)message.GetPayloadByte();
         }
 
         /// <summary>
@@ -903,9 +903,10 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<byte> GetTimestampedPayload(HarpMessage message)
+        public static Timestamped<Ports> GetTimestampedPayload(HarpMessage message)
         {
-            return message.GetTimestampedPayloadByte();
+            var payload = message.GetTimestampedPayloadByte();
+            return Timestamped.Create((Ports)payload.Value, payload.Seconds);
         }
 
         /// <summary>
@@ -917,9 +918,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A <see cref="HarpMessage"/> object for the <see cref="RisingEdgeEventEnabled"/> register
         /// with the specified message type and payload.
         /// </returns>
-        public static HarpMessage FromPayload(MessageType messageType, byte value)
+        public static HarpMessage FromPayload(MessageType messageType, Ports value)
         {
-            return HarpMessage.FromByte(Address, messageType, value);
+            return HarpMessage.FromByte(Address, messageType, (byte)value);
         }
 
         /// <summary>
@@ -933,9 +934,9 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// A <see cref="HarpMessage"/> object for the <see cref="RisingEdgeEventEnabled"/> register
         /// with the specified message type, timestamp, and payload.
         /// </returns>
-        public static HarpMessage FromPayload(double timestamp, MessageType messageType, byte value)
+        public static HarpMessage FromPayload(double timestamp, MessageType messageType, Ports value)
         {
-            return HarpMessage.FromByte(Address, timestamp, messageType, value);
+            return HarpMessage.FromByte(Address, timestamp, messageType, (byte)value);
         }
     }
 
@@ -957,16 +958,16 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         /// </summary>
         /// <param name="message">A <see cref="HarpMessage"/> object representing the register message.</param>
         /// <returns>A value representing the timestamped message payload.</returns>
-        public static Timestamped<byte> GetPayload(HarpMessage message)
+        public static Timestamped<Ports> GetPayload(HarpMessage message)
         {
             return RisingEdgeEventEnabled.GetTimestampedPayload(message);
         }
     }
 
     /// <summary>
-    /// Represents a register that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
+    /// Represents a register that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.
     /// </summary>
-    [Description("Bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
+    [Description("Bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
     public partial class RisingEdgeEvent
     {
         /// <summary>
@@ -2682,16 +2683,16 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that bitmask to enable/disable each of the 8 Pwm outputs.
+    /// that bitmask to enable/disable each of the 8 PWM outputs.
     /// </summary>
     [DisplayName("PwmEnabledPayload")]
-    [Description("Creates a message payload that bitmask to enable/disable each of the 8 Pwm outputs.")]
+    [Description("Creates a message payload that bitmask to enable/disable each of the 8 PWM outputs.")]
     public partial class CreatePwmEnabledPayload
     {
         /// <summary>
-        /// Gets or sets the value that bitmask to enable/disable each of the 8 Pwm outputs.
+        /// Gets or sets the value that bitmask to enable/disable each of the 8 PWM outputs.
         /// </summary>
-        [Description("The value that bitmask to enable/disable each of the 8 Pwm outputs.")]
+        [Description("The value that bitmask to enable/disable each of the 8 PWM outputs.")]
         public Ports PwmEnabled { get; set; }
 
         /// <summary>
@@ -2704,7 +2705,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Creates a message that bitmask to enable/disable each of the 8 Pwm outputs.
+        /// Creates a message that bitmask to enable/disable each of the 8 PWM outputs.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the PwmEnabled register.</returns>
@@ -2716,14 +2717,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that bitmask to enable/disable each of the 8 Pwm outputs.
+    /// that bitmask to enable/disable each of the 8 PWM outputs.
     /// </summary>
     [DisplayName("TimestampedPwmEnabledPayload")]
-    [Description("Creates a timestamped message payload that bitmask to enable/disable each of the 8 Pwm outputs.")]
+    [Description("Creates a timestamped message payload that bitmask to enable/disable each of the 8 PWM outputs.")]
     public partial class CreateTimestampedPwmEnabledPayload : CreatePwmEnabledPayload
     {
         /// <summary>
-        /// Creates a timestamped message that bitmask to enable/disable each of the 8 Pwm outputs.
+        /// Creates a timestamped message that bitmask to enable/disable each of the 8 PWM outputs.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -2736,16 +2737,16 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
+    /// that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.
     /// </summary>
     [DisplayName("PwmSetPayload")]
-    [Description("Creates a message payload that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    [Description("Creates a message payload that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.")]
     public partial class CreatePwmSetPayload
     {
         /// <summary>
-        /// Gets or sets the value that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
+        /// Gets or sets the value that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.
         /// </summary>
-        [Description("The value that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+        [Description("The value that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.")]
         public Ports PwmSet { get; set; }
 
         /// <summary>
@@ -2758,7 +2759,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Creates a message that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
+        /// Creates a message that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the PwmSet register.</returns>
@@ -2770,14 +2771,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
+    /// that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.
     /// </summary>
     [DisplayName("TimestampedPwmSetPayload")]
-    [Description("Creates a timestamped message payload that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    [Description("Creates a timestamped message payload that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.")]
     public partial class CreateTimestampedPwmSetPayload : CreatePwmSetPayload
     {
         /// <summary>
-        /// Creates a timestamped message that bitmask to enable any of the 8 Pwm outputs when corresponding bit is set to 1.
+        /// Creates a timestamped message that bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -2790,16 +2791,16 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+    /// that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.
     /// </summary>
     [DisplayName("PwmClearPayload")]
-    [Description("Creates a message payload that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    [Description("Creates a message payload that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.")]
     public partial class CreatePwmClearPayload
     {
         /// <summary>
-        /// Gets or sets the value that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+        /// Gets or sets the value that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.
         /// </summary>
-        [Description("The value that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+        [Description("The value that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.")]
         public Ports PwmClear { get; set; }
 
         /// <summary>
@@ -2812,7 +2813,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Creates a message that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+        /// Creates a message that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the PwmClear register.</returns>
@@ -2824,14 +2825,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+    /// that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.
     /// </summary>
     [DisplayName("TimestampedPwmClearPayload")]
-    [Description("Creates a timestamped message payload that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.")]
+    [Description("Creates a timestamped message payload that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.")]
     public partial class CreateTimestampedPwmClearPayload : CreatePwmClearPayload
     {
         /// <summary>
-        /// Creates a timestamped message that bitmask to disable any of the 8 Pwm outputs when corresponding bit is set to 1.
+        /// Creates a timestamped message that bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -2844,16 +2845,16 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that bitmask to invert each of the 8 Pwm outputs if set to 1.
+    /// that bitmask to invert each of the 8 PWM outputs if set to 1.
     /// </summary>
     [DisplayName("PwmInvertPayload")]
-    [Description("Creates a message payload that bitmask to invert each of the 8 Pwm outputs if set to 1.")]
+    [Description("Creates a message payload that bitmask to invert each of the 8 PWM outputs if set to 1.")]
     public partial class CreatePwmInvertPayload
     {
         /// <summary>
-        /// Gets or sets the value that bitmask to invert each of the 8 Pwm outputs if set to 1.
+        /// Gets or sets the value that bitmask to invert each of the 8 PWM outputs if set to 1.
         /// </summary>
-        [Description("The value that bitmask to invert each of the 8 Pwm outputs if set to 1.")]
+        [Description("The value that bitmask to invert each of the 8 PWM outputs if set to 1.")]
         public Ports PwmInvert { get; set; }
 
         /// <summary>
@@ -2866,7 +2867,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Creates a message that bitmask to invert each of the 8 Pwm outputs if set to 1.
+        /// Creates a message that bitmask to invert each of the 8 PWM outputs if set to 1.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the PwmInvert register.</returns>
@@ -2878,14 +2879,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that bitmask to invert each of the 8 Pwm outputs if set to 1.
+    /// that bitmask to invert each of the 8 PWM outputs if set to 1.
     /// </summary>
     [DisplayName("TimestampedPwmInvertPayload")]
-    [Description("Creates a timestamped message payload that bitmask to invert each of the 8 Pwm outputs if set to 1.")]
+    [Description("Creates a timestamped message payload that bitmask to invert each of the 8 PWM outputs if set to 1.")]
     public partial class CreateTimestampedPwmInvertPayload : CreatePwmInvertPayload
     {
         /// <summary>
-        /// Creates a timestamped message that bitmask to invert each of the 8 Pwm outputs if set to 1.
+        /// Creates a timestamped message that bitmask to invert each of the 8 PWM outputs if set to 1.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -2898,29 +2899,29 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+    /// that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.
     /// </summary>
     [DisplayName("RisingEdgeEventEnabledPayload")]
-    [Description("Creates a message payload that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.")]
+    [Description("Creates a message payload that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.")]
     public partial class CreateRisingEdgeEventEnabledPayload
     {
         /// <summary>
-        /// Gets or sets the value that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+        /// Gets or sets the value that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.
         /// </summary>
-        [Description("The value that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.")]
-        public byte RisingEdgeEventEnabled { get; set; }
+        [Description("The value that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.")]
+        public Ports RisingEdgeEventEnabled { get; set; }
 
         /// <summary>
         /// Creates a message payload for the RisingEdgeEventEnabled register.
         /// </summary>
         /// <returns>The created message payload value.</returns>
-        public byte GetPayload()
+        public Ports GetPayload()
         {
             return RisingEdgeEventEnabled;
         }
 
         /// <summary>
-        /// Creates a message that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+        /// Creates a message that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the RisingEdgeEventEnabled register.</returns>
@@ -2932,14 +2933,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+    /// that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.
     /// </summary>
     [DisplayName("TimestampedRisingEdgeEventEnabledPayload")]
-    [Description("Creates a timestamped message payload that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.")]
+    [Description("Creates a timestamped message payload that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.")]
     public partial class CreateTimestampedRisingEdgeEventEnabledPayload : CreateRisingEdgeEventEnabledPayload
     {
         /// <summary>
-        /// Creates a timestamped message that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding Pwm outputs.
+        /// Creates a timestamped message that bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
@@ -2952,16 +2953,16 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a message payload
-    /// that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
+    /// that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.
     /// </summary>
     [DisplayName("RisingEdgeEventPayload")]
-    [Description("Creates a message payload that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
+    [Description("Creates a message payload that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
     public partial class CreateRisingEdgeEventPayload
     {
         /// <summary>
-        /// Gets or sets the value that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
+        /// Gets or sets the value that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.
         /// </summary>
-        [Description("The value that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
+        [Description("The value that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
         public Ports RisingEdgeEvent { get; set; }
 
         /// <summary>
@@ -2974,7 +2975,7 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
         }
 
         /// <summary>
-        /// Creates a message that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
+        /// Creates a message that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.
         /// </summary>
         /// <param name="messageType">Specifies the type of the created message.</param>
         /// <returns>A new message for the RisingEdgeEvent register.</returns>
@@ -2986,14 +2987,14 @@ namespace AllenNeuralDynamics.CuttlefishCamTrigger
 
     /// <summary>
     /// Represents an operator that creates a timestamped message payload
-    /// that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
+    /// that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.
     /// </summary>
     [DisplayName("TimestampedRisingEdgeEventPayload")]
-    [Description("Creates a timestamped message payload that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
+    [Description("Creates a timestamped message payload that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.")]
     public partial class CreateTimestampedRisingEdgeEventPayload : CreateRisingEdgeEventPayload
     {
         /// <summary>
-        /// Creates a timestamped message that bitmask with the current state of the Pwm outputs. This event is dispatched if any of the specified outputs sees a rising edge.
+        /// Creates a timestamped message that bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge.
         /// </summary>
         /// <param name="timestamp">The timestamp of the message payload, in seconds.</param>
         /// <param name="messageType">Specifies the type of the created message.</param>
