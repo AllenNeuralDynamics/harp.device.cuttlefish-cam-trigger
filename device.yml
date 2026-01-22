@@ -1,125 +1,113 @@
 %YAML 1.1
 ---
 # yaml-language-server: $schema=https://harp-tech.org/draft-02/schema/device.json
-device: Cuttlefish-Cam-Trigger
+device: CuttlefishCamTrigger
 whoAmI: 1408
 firmwareVersion: "0.1"
 hardwareTargets: "0.0"
 registers:
-  PWMEnabledMask:
+  PwmEnabled:
     address: 32
     type: U8
     access: Write
     maskType: Ports
     description: "Bitmask to enable/disable each of the 8 PWM outputs"
-  PWMSetMask:
+  PwmSet:
     address: 33
     type: U8
     access: Write
     maskType: Ports
     description: "Bitmask to enable any of the 8 PWM outputs when corresponding bit is set to 1."
-  PWMClearMask:
+  PwmClear:
     address: 34
     type: U8
     access: Write
     maskType: Ports
     description: "Bitmask to disable any of the 8 PWM outputs when corresponding bit is set to 1."
-  PWMInvertedMask:
+  PwmInvert:
     address: 35
     type: U8
     access: Write
     maskType: Ports
     description: "Bitmask to invert each of the 8 PWM outputs if set to 1"
-  RisingEdgeEventMask:
+  RisingEdgeEventEnabled:
     address: 36
     type: U8
     access: Write
+    maskType: Ports
     description: "Bitmask to enable/disable dispatch of a rising edge event message for each of the corresponding PWM outputs"
   RisingEdgeEvent:
     address: 37
     type: U8
     access: Event
+    maskType: Ports
     description: "Bitmask with the current state of the PWM outputs. This event is dispatched if any of the specified outputs sees a rising edge."
-  PWM0FrequencyHz:
+  Pwm0FrequencyHz: &PwmFrequencyHz
     address: 38
     type: Float
     access: Write
-    description: "PWM output 0 frequency setting in Hz."
-  PWM0DutyCycle:
+    description: "Pwm output 0 frequency setting in Hz."
+  Pwm0DutyCycle: &PwmDutyCycle
     address: 39
     type: Float
     access: Write
-    description: "PWM output 0 duty cycle setting (range: 0.0 - 1.0)."
-  PWM1FrequencyHz:
+    description: "Pwm output 0 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm1FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 40
-    type: Float
-    access: Write
-    description: "PWM output 1 frequency setting in Hz."
-  PWM1DutyCycle:
+    description: "Pwm output 1 frequency setting in Hz."
+  Pwm1DutyCycle:
+    <<: *PwmDutyCycle
     address: 41
-    type: Float
-    access: Write
-    description: "PWM output 1 duty cycle setting (range: 0.0 - 1.0)."
-  PWM2FrequencyHz:
+    description: "Pwm output 1 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm2FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 42
-    type: Float
-    access: Write
-    description: "PWM output 2 frequency setting in Hz."
-  PWM2DutyCycle:
+    description: "Pwm output 2 frequency setting in Hz."
+  Pwm2DutyCycle:
+    <<: *PwmDutyCycle
     address: 43
-    type: Float
-    access: Write
-    description: "PWM output 2 duty cycle setting (range: 0.0 - 1.0)."
-  PWM3FrequencyHz:
+    description: "Pwm output 2 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm3FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 44
-    type: Float
-    access: Write
-    description: "PWM output 3 frequency setting in Hz."
-  PWM3DutyCycle:
+    description: "Pwm output 3 frequency setting in Hz."
+  Pwm3DutyCycle:
+    <<: *PwmDutyCycle
     address: 45
-    type: Float
-    access: Write
-    description: "PWM output 3 duty cycle setting (range: 0.0 - 1.0)."
-  PWM4FrequencyHz:
+    description: "Pwm output 3 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm4FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 46
-    type: Float
-    access: Write
-    description: "PWM output 4 frequency setting in Hz."
-  PWM4DutyCycle:
+    description: "Pwm output 4 frequency setting in Hz."
+  Pwm4DutyCycle:
+    <<: *PwmDutyCycle
     address: 47
-    type: Float
-    access: Write
-    description: "PWM output 4 duty cycle setting (range: 0.0 - 1.0)."
-  PWM5FrequencyHz:
+    description: "Pwm output 4 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm5FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 48
-    type: Float
-    access: Write
-    description: "PWM output 5 frequency setting in Hz."
-  PWM5DutyCycle:
+    description: "Pwm output 5 frequency setting in Hz."
+  Pwm5DutyCycle:
+    <<: *PwmDutyCycle
     address: 49
-    type: Float
-    access: Write
-    description: "PWM output 5 duty cycle setting (range: 0.0 - 1.0)."
-  PWM6FrequencyHz:
+    description: "Pwm output 5 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm6FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 50
-    type: Float
-    access: Write
-    description: "PWM output 6 frequency setting in Hz."
-  PWM6DutyCycle:
+    description: "Pwm output 6 frequency setting in Hz."
+  Pwm6DutyCycle:
+    <<: *PwmDutyCycle
     address: 51
-    type: Float
-    access: Write
-    description: "PWM output 6 duty cycle setting (range: 0.0 - 1.0)."
-  PWM7FrequencyHz:
+    description: "Pwm output 6 duty cycle setting (range: 0.0 - 1.0)."
+  Pwm7FrequencyHz:
+    <<: *PwmFrequencyHz
     address: 52
-    type: Float
-    access: Write
-    description: "PWM output 7 frequency setting in Hz."
-  PWM7DutyCycle:
+    description: "Pwm output 7 frequency setting in Hz."
+  Pwm7DutyCycle:
+    <<: *PwmDutyCycle
     address: 53
-    type: Float
-    access: Write
-    description: "PWM output 7 duty cycle setting (range: 0.0 - 1.0)."
+    description: "Pwm output 7 duty cycle setting (range: 0.0 - 1.0)."
 bitMasks:
   Ports:
     description: "Available ports on the device"
